@@ -6,6 +6,7 @@ export default class SettingsScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Ilova haqida</Text>
+        <Text>Ko'chirligan matnni avtomatik kiritish</Text>
       </View>
     );
   }
