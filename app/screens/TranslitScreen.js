@@ -16,6 +16,8 @@ import {
 } from 'react-native';
 import { SimpleLineIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Card } from 'react-native-elements';
+import Modal from 'react-native-modal';
+
 const { width, height } = Dimensions.get('window');
 
 export default class TransLit extends React.Component {
@@ -32,9 +34,11 @@ export default class TransLit extends React.Component {
       borderBottomColor: '#aaaaaa'
     }
   });
-  state = { text: '', convertedText: '' };
+  state = { text: '', convertedText: '', isModalVisible: false };
   _setContent() {
-    Clipboard.setString(this.state.text);
+    Clipboard.setString(this.state.convertedText);
+    this._setKeyboard();
+    this.setState({ isModalVisible: true });
   }
   _setKeyboard() {
     Keyboard.dismiss();
@@ -215,6 +219,14 @@ export default class TransLit extends React.Component {
     this.setState({ convertedText: result });
   }
 
+  _renderModalContent = () => (
+    <View style={styles.modalContent}>
+      <Text style={{ fontSize: 18 }}>Matn nusxasi olindi</Text>
+    </View>
+  );
+  _hideModal() {
+    setTimeout(() => this.setState({ isModalVisible: !this.state.isModalVisible }), 500);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -268,9 +280,6 @@ export default class TransLit extends React.Component {
               : { backgroundColor: '#fafafa' }
           ]}
         >
-          <Text style={styles.textOutputStyle} selectable>
-            {this.state.convertedText}
-          </Text>
           <TouchableOpacity
             style={styles.textInteractionsButton}
             onPress={() => this._setContent()}
@@ -281,6 +290,18 @@ export default class TransLit extends React.Component {
               style={styles.copyButtonIconStyle}
             />
           </TouchableOpacity>
+          <Text style={styles.textOutputStyle} selectable numberOfLines={50} ellipsizeMode="tail">
+            {this.state.convertedText}
+          </Text>
+          <View>
+            <Modal
+              isVisible={this.state.isModalVisible}
+              style={styles.bottomModal}
+              onModalShow={() => this._hideModal()}
+            >
+              {this._renderModalContent()}
+            </Modal>
+          </View>
         </Card>
       </View>
     );
@@ -360,5 +381,17 @@ const styles = StyleSheet.create({
   },
   copyButtonIconStyle: {
     color: '#fff'
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)'
+  },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0
   }
 });
