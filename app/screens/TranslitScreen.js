@@ -32,13 +32,189 @@ export default class TransLit extends React.Component {
       borderBottomColor: '#aaaaaa'
     }
   });
-  state = { text: '' };
+  state = { text: '', convertedText: '' };
   _setContent() {
     Clipboard.setString(this.state.text);
   }
   _setKeyboard() {
     Keyboard.dismiss();
   }
+
+  _transliterate(text) {
+    /**
+     * A unidirectional transliteration algorithm which makes a set of substitutions on a string, and handles common edge cases.
+     * @param  {String} [string='']        The String to transliterate
+     * @param  {Object} [substitutions={}] The set of substitutions to make on the String. Each key should be the character(s) to replace, and its value should be the character(s) to replace it with.
+     * @return {String}                    Returns a new String with the substitutions made
+     */
+    const convert = (string = '', substitutions = {}) => {
+      // save the string to a new variable for readability
+      let str = string;
+
+      // make a copy of the substitutions Object so that the original is not affected
+      const subs = Object.assign({}, substitutions);
+
+      // create an Object to hold any temporary substitutions
+      const temps = {};
+
+      // generates a random character from the geometric shapes block (U+25A0-25FF)
+      const getRandomCodePoint = () => String.fromCodePoint(Math.floor(Math.random() * 95) + 9632);
+
+      // save the list of inputs in order to check for feeding problems
+      const inputs = Object.keys(substitutions);
+
+      // get the list of substitutions
+      Object.entries(substitutions)
+
+        // sort the substitutions by longest string (avoids the substring problem)
+        .sort(([a], [b]) => b.length - a.length)
+
+        // for each substitution...
+        .forEach(([input, replacement]) => {
+          // check for feeding problem
+          if (inputs.includes(replacement)) {
+            // get a character to use as a temporary substitution
+            let temp = getRandomCodePoint();
+
+            // if that character has already been used, get another
+            while (temp in temps) temp = getRandomCodePoint();
+
+            // add the temporary substitution to the temps Object
+            temps[temp] = replacement;
+
+            // swap the original replacement with the temporary one
+            subs[input] = temp;
+          }
+
+          // create a regular expression that searches globally for the string to replace
+          const regexp = new RegExp(input, 'gu');
+
+          // replace all matched instances of the regular expression with the new string
+          // at this point, `subs` contains temporary substitutions, so those will be made
+          str = str.replace(regexp, subs[input]);
+        });
+
+      // undo the temporary substitutions:
+      // get the list of temporary substitutions
+
+      Object.entries(temps)
+        // for each temporary substitution that was made...
+        .forEach(([temp, replacement]) => {
+          // create a regular expression that searches globally for the temporary substitution to replace
+          const regexp = new RegExp(temp, 'gu');
+
+          // replace all matched instances of the temporary substitution with the original subsitution
+          str = str.replace(regexp, replacement);
+        });
+
+      // return the string with the substitutions made
+
+      return str;
+    };
+    const ltn_substitutions = {
+      Ts: 'Ц',
+      ts: 'ц',
+      Oʻ: 'Ў',
+      Oʼ: 'Ў',
+      'O’': 'Ў',
+      "O'": 'Ў',
+      'O`': 'Ў',
+      'O‘': 'Ў',
+      oʻ: 'ў',
+      oʼ: 'ў',
+      'o’': 'ў',
+      "o'": 'ў',
+      'o`': 'ў',
+      'o‘': 'ў',
+      Gʻ: 'Ғ',
+      Gʼ: 'Ғ',
+      'G’': 'Ғ',
+      "G'": 'Ғ',
+      'G`': 'Ғ',
+      'G‘': 'Ғ',
+      gʻ: 'ғ',
+      gʼ: 'ғ',
+      'g’': 'ғ',
+      "g'": 'ғ',
+      'g`': 'ғ',
+      'g‘': 'ғ',
+      "YO'": 'ЙЎ',
+      "Yo'": 'Йў',
+      "yo'": 'йў',
+      YO: 'Ё',
+      Yo: 'Ё',
+      yo: 'ё',
+      YA: 'Я',
+      Ya: 'Я',
+      ya: 'я',
+      YE: 'Е',
+      Ye: 'Е',
+      ye: 'е',
+      YU: 'Ю',
+      Yu: 'Ю',
+      yu: 'ю',
+      CH: 'Ч',
+      Ch: 'Ч',
+      ch: 'ч',
+      "S'H": 'СҲ',
+      "S'h": 'Сҳ',
+      "s'h": 'сҳ',
+      SH: 'Ш',
+      Sh: 'Ш',
+      sh: 'ш',
+      A: 'А',
+      a: 'а',
+      B: 'Б',
+      b: 'б',
+      D: 'Д',
+      d: 'д',
+      F: 'Ф',
+      f: 'ф',
+      G: 'Г',
+      g: 'г',
+      H: 'Ҳ',
+      h: 'ҳ',
+      I: 'И',
+      i: 'и',
+      J: 'Ж',
+      j: 'ж',
+      K: 'К',
+      k: 'к',
+      L: 'Л',
+      l: 'л',
+      M: 'М',
+      m: 'м',
+      N: 'Н',
+      n: 'н',
+      O: 'О',
+      o: 'о',
+      P: 'П',
+      p: 'п',
+      Q: 'Қ',
+      q: 'қ',
+      R: 'Р',
+      r: 'р',
+      S: 'С',
+      s: 'с',
+      T: 'Т',
+      t: 'т',
+      U: 'У',
+      u: 'у',
+      V: 'В',
+      v: 'в',
+      X: 'Х',
+      x: 'х',
+      Y: 'Й',
+      y: 'й',
+      Z: 'З',
+      z: 'з'
+    };
+
+    const result = convert(text, ltn_substitutions);
+
+    this.setState({ convertedText: result });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -55,7 +231,7 @@ export default class TransLit extends React.Component {
             />
           </TouchableOpacity>
           <View style={styles.alphabetButtonContainer}>
-            <Text style={styles.alphabetText}>Kirill</Text>
+            <Text style={styles.alphabetText}>Кирилл</Text>
           </View>
         </View>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -66,7 +242,7 @@ export default class TransLit extends React.Component {
               autoCorrect={false}
               spellCheck={false}
               placeholder="Matnni o'girish uchun kiriting"
-              onChangeText={text => this.setState({ text })}
+              onChangeText={text => this.setState({ text }, this._transliterate(text))}
               value={this.state.text}
               returnKeyType={'go'}
               onSubmitEditing={() => this._setKeyboard()}
@@ -92,13 +268,8 @@ export default class TransLit extends React.Component {
               : { backgroundColor: '#fafafa' }
           ]}
         >
-          <Text
-            style={styles.textOutputStyle}
-            onChangeText={text => this.setState({ text })}
-            value={this.state.text}
-            selectable
-          >
-            {this.state.text}
+          <Text style={styles.textOutputStyle} selectable>
+            {this.state.convertedText}
           </Text>
           <TouchableOpacity
             style={styles.textInteractionsButton}
