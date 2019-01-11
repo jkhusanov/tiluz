@@ -221,7 +221,7 @@ export default class TransLit extends React.Component {
 
   _renderModalContent = () => (
     <View style={styles.modalContent}>
-      <Text style={{ fontSize: 18 }}>Matn nusxasi olindi</Text>
+      <Text style={{ fontSize: 18, color: '#00b8a9' }}>Matn nusxasi olindi</Text>
     </View>
   );
   _hideModal() {
