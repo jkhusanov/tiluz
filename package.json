@@ -13,6 +13,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-elements": "^1.0.0-beta7",
     "react-native-modal": "^7.0.2",
+    "react-native-modalbox": "^1.6.0",
     "react-navigation": "^3.0.9",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",

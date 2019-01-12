@@ -12,7 +12,7 @@ const HomeTabs = createBottomTabNavigator(
     TranslitTab: {
       screen: TranslitStack,
       navigationOptions: {
-        tabBarLabel: "O'girish",
+        tabBarLabel: 'O‘girish',
         tabBarIcon: ({ tintColor }) => (
           <MaterialCommunityIcons
             name="clipboard-text"

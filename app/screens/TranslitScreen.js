@@ -17,7 +17,8 @@ import {
 import { SimpleLineIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Card } from 'react-native-elements';
 import Modal from 'react-native-modal';
-
+import transliterator from '../components/transliterator';
+import { ltn_substitutions, cyrl_substitutions } from '../components/charSubstitutions';
 const { width, height } = Dimensions.get('window');
 
 export default class TransLit extends React.Component {
@@ -34,218 +35,58 @@ export default class TransLit extends React.Component {
       borderBottomColor: '#aaaaaa'
     }
   });
-  state = { text: '', convertedText: '', isModalVisible: false };
+  state = { text: '', convertedText: '', isModalVisible: false, isLatin: true };
   _setContent() {
-    Clipboard.setString(this.state.convertedText);
-    this._setKeyboard();
-    this.setState({ isModalVisible: true });
+    if (this.state.convertedText !== '') {
+      Clipboard.setString(this.state.convertedText);
+      this._setKeyboard();
+      this.setState({ isModalVisible: true });
+    }
   }
   _setKeyboard() {
     Keyboard.dismiss();
   }
 
   _transliterate(text) {
-    /**
-     * A unidirectional transliteration algorithm which makes a set of substitutions on a string, and handles common edge cases.
-     * @param  {String} [string='']        The String to transliterate
-     * @param  {Object} [substitutions={}] The set of substitutions to make on the String. Each key should be the character(s) to replace, and its value should be the character(s) to replace it with.
-     * @return {String}                    Returns a new String with the substitutions made
-     */
-    const convert = (string = '', substitutions = {}) => {
-      // save the string to a new variable for readability
-      let str = string;
+    const { isLatin } = this.state;
 
-      // make a copy of the substitutions Object so that the original is not affected
-      const subs = Object.assign({}, substitutions);
-
-      // create an Object to hold any temporary substitutions
-      const temps = {};
-
-      // generates a random character from the geometric shapes block (U+25A0-25FF)
-      const getRandomCodePoint = () => String.fromCodePoint(Math.floor(Math.random() * 95) + 9632);
-
-      // save the list of inputs in order to check for feeding problems
-      const inputs = Object.keys(substitutions);
-
-      // get the list of substitutions
-      Object.entries(substitutions)
-
-        // sort the substitutions by longest string (avoids the substring problem)
-        .sort(([a], [b]) => b.length - a.length)
-
-        // for each substitution...
-        .forEach(([input, replacement]) => {
-          // check for feeding problem
-          if (inputs.includes(replacement)) {
-            // get a character to use as a temporary substitution
-            let temp = getRandomCodePoint();
-
-            // if that character has already been used, get another
-            while (temp in temps) temp = getRandomCodePoint();
-
-            // add the temporary substitution to the temps Object
-            temps[temp] = replacement;
-
-            // swap the original replacement with the temporary one
-            subs[input] = temp;
-          }
-
-          // create a regular expression that searches globally for the string to replace
-          const regexp = new RegExp(input, 'gu');
-
-          // replace all matched instances of the regular expression with the new string
-          // at this point, `subs` contains temporary substitutions, so those will be made
-          str = str.replace(regexp, subs[input]);
-        });
-
-      // undo the temporary substitutions:
-      // get the list of temporary substitutions
-
-      Object.entries(temps)
-        // for each temporary substitution that was made...
-        .forEach(([temp, replacement]) => {
-          // create a regular expression that searches globally for the temporary substitution to replace
-          const regexp = new RegExp(temp, 'gu');
-
-          // replace all matched instances of the temporary substitution with the original subsitution
-          str = str.replace(regexp, replacement);
-        });
-
-      // return the string with the substitutions made
-
-      return str;
-    };
-    const ltn_substitutions = {
-      Ts: 'Ц',
-      ts: 'ц',
-      Oʻ: 'Ў',
-      Oʼ: 'Ў',
-      'O’': 'Ў',
-      "O'": 'Ў',
-      'O`': 'Ў',
-      'O‘': 'Ў',
-      oʻ: 'ў',
-      oʼ: 'ў',
-      'o’': 'ў',
-      "o'": 'ў',
-      'o`': 'ў',
-      'o‘': 'ў',
-      Gʻ: 'Ғ',
-      Gʼ: 'Ғ',
-      'G’': 'Ғ',
-      "G'": 'Ғ',
-      'G`': 'Ғ',
-      'G‘': 'Ғ',
-      gʻ: 'ғ',
-      gʼ: 'ғ',
-      'g’': 'ғ',
-      "g'": 'ғ',
-      'g`': 'ғ',
-      'g‘': 'ғ',
-      "YO'": 'ЙЎ',
-      "Yo'": 'Йў',
-      "yo'": 'йў',
-      YO: 'Ё',
-      Yo: 'Ё',
-      yo: 'ё',
-      YA: 'Я',
-      Ya: 'Я',
-      ya: 'я',
-      YE: 'Е',
-      Ye: 'Е',
-      ye: 'е',
-      YU: 'Ю',
-      Yu: 'Ю',
-      yu: 'ю',
-      CH: 'Ч',
-      Ch: 'Ч',
-      ch: 'ч',
-      "S'H": 'СҲ',
-      "S'h": 'Сҳ',
-      "s'h": 'сҳ',
-      SH: 'Ш',
-      Sh: 'Ш',
-      sh: 'ш',
-      A: 'А',
-      a: 'а',
-      B: 'Б',
-      b: 'б',
-      D: 'Д',
-      d: 'д',
-      F: 'Ф',
-      f: 'ф',
-      G: 'Г',
-      g: 'г',
-      H: 'Ҳ',
-      h: 'ҳ',
-      I: 'И',
-      i: 'и',
-      J: 'Ж',
-      j: 'ж',
-      K: 'К',
-      k: 'к',
-      L: 'Л',
-      l: 'л',
-      M: 'М',
-      m: 'м',
-      N: 'Н',
-      n: 'н',
-      O: 'О',
-      o: 'о',
-      P: 'П',
-      p: 'п',
-      Q: 'Қ',
-      q: 'қ',
-      R: 'Р',
-      r: 'р',
-      S: 'С',
-      s: 'с',
-      T: 'Т',
-      t: 'т',
-      U: 'У',
-      u: 'у',
-      V: 'В',
-      v: 'в',
-      X: 'Х',
-      x: 'х',
-      Y: 'Й',
-      y: 'й',
-      Z: 'З',
-      z: 'з'
-    };
-
-    const result = convert(text, ltn_substitutions);
+    const result = transliterator(text, isLatin ? ltn_substitutions : cyrl_substitutions);
 
     this.setState({ convertedText: result });
+  }
+  _changeAbc() {
+    this.setState({ isLatin: !this.state.isLatin });
   }
 
   _renderModalContent = () => (
     <View style={styles.modalContent}>
-      <Text style={{ fontSize: 18, color: '#00b8a9' }}>Matn nusxasi olindi</Text>
+      <Text style={{ fontSize: 16, color: '#f5f5f5' }}>Matn nusxasi olindi</Text>
     </View>
   );
   _hideModal() {
-    setTimeout(() => this.setState({ isModalVisible: !this.state.isModalVisible }), 500);
+    setTimeout(() => this.setState({ isModalVisible: !this.state.isModalVisible }), 1000);
   }
   render() {
+    const { isLatin } = this.state;
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#3490de" barStyle="light-content" />
         <View style={styles.alphabetChooseContainer}>
           <View style={styles.alphabetButtonContainer}>
-            <Text style={styles.alphabetText}>Lotin</Text>
+            <Text style={styles.alphabetText}>{isLatin ? 'Lotin' : 'Кирилл'}</Text>
           </View>
-          <TouchableOpacity style={styles.swapButtonContainer}>
-            <MaterialCommunityIcons
-              name="swap-horizontal-variant"
-              size={Platform.OS === 'ios' ? 20 : 22}
-              style={styles.changeButtonIconStyle}
-            />
-          </TouchableOpacity>
+
           <View style={styles.alphabetButtonContainer}>
-            <Text style={styles.alphabetText}>Кирилл</Text>
+            <Text style={styles.alphabetText}>{isLatin ? 'Кирилл' : 'Lotin'}</Text>
           </View>
         </View>
+        <TouchableOpacity style={styles.swapButtonContainer} onPress={() => this._changeAbc()}>
+          <MaterialCommunityIcons
+            name="swap-horizontal-variant"
+            size={Platform.OS === 'ios' ? 20 : 22}
+            style={styles.changeButtonIconStyle}
+          />
+        </TouchableOpacity>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <Card containerStyle={styles.textInputContainer}>
             <TextInput
@@ -253,7 +94,7 @@ export default class TransLit extends React.Component {
               multiline={true}
               autoCorrect={false}
               spellCheck={false}
-              placeholder="Matnni o'girish uchun kiriting"
+              placeholder="Matnni o‘girish uchun kiriting"
               onChangeText={text => this.setState({ text }, this._transliterate(text))}
               value={this.state.text}
               returnKeyType={'go'}
@@ -290,7 +131,14 @@ export default class TransLit extends React.Component {
               style={styles.copyButtonIconStyle}
             />
           </TouchableOpacity>
-          <Text style={styles.textOutputStyle} selectable numberOfLines={50} ellipsizeMode="tail">
+          <Text
+            style={styles.textOutputStyle}
+            selectable
+            numberOfLines={600}
+            ellipsizeMode="tail"
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
             {this.state.convertedText}
           </Text>
           <View>
@@ -298,6 +146,7 @@ export default class TransLit extends React.Component {
               isVisible={this.state.isModalVisible}
               style={styles.bottomModal}
               onModalShow={() => this._hideModal()}
+              backdropOpacity={0}
             >
               {this._renderModalContent()}
             </Modal>
@@ -329,13 +178,17 @@ const styles = StyleSheet.create({
     color: '#304753'
   },
   swapButtonContainer: {
+    top: 19,
+    position: 'absolute',
     backgroundColor: '#3490de',
     height: 35,
     width: 50,
     borderRadius: 15,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    alignSelf: 'center'
   },
+  alphabetButtonContainer: {},
   changeButtonIconStyle: {
     color: '#fff'
   },
@@ -383,15 +236,14 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: '#212121',
     padding: 22,
     justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
-    borderColor: 'rgba(0, 0, 0, 0.1)'
+    alignItems: 'flex-start'
   },
   bottomModal: {
     justifyContent: 'flex-end',
-    margin: 0
+    margin: 0,
+    paddingBottom: height / 10
   }
 });
