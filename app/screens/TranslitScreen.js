@@ -131,16 +131,11 @@ export default class TransLit extends React.Component {
               style={styles.copyButtonIconStyle}
             />
           </TouchableOpacity>
-          <Text
-            style={styles.textOutputStyle}
-            selectable
-            numberOfLines={600}
-            ellipsizeMode="tail"
-            adjustsFontSizeToFit
-            minimumFontScale={0.7}
-          >
-            {this.state.convertedText}
-          </Text>
+          <ScrollView>
+            <Text style={styles.textOutputStyle} selectable>
+              {this.state.convertedText}
+            </Text>
+          </ScrollView>
           <View>
             <Modal
               isVisible={this.state.isModalVisible}
@@ -161,8 +156,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff'
-    // alignItems: 'center'
-    // justifyContent: 'center'
   },
   alphabetChooseContainer: {
     height: height / 10,
@@ -224,10 +217,10 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     shadowColor: '#eeeeee',
     shadowOffset: { height: 2, width: 0 },
-    elevation: 1
+    elevation: 1,
+    height: height / 4 + 40
   },
   textOutputStyle: {
-    height: height / 4,
     fontSize: 20,
     color: '#fff',
     fontWeight: '500'
