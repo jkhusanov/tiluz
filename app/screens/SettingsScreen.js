@@ -94,7 +94,7 @@ export default class SettingsScreen extends React.Component {
             style={styles.copyButtonIconStyle}
             color={'#c5c5c5'}
           />
-          <Text style={styles.authorText}> by Jakhongir Khusanov</Text>
+          <Text style={styles.authorText}> by JK</Text>
         </View>
       </View>
     );
