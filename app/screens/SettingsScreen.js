@@ -18,7 +18,7 @@ export default class SettingsScreen extends React.Component {
       fontWeight: 'bold'
     },
     headerStyle: {
-      backgroundColor: '#3490de',
+      backgroundColor: '#374FF5',
       borderBottomWidth: 0.5,
       borderBottomColor: '#aaaaaa'
     }
@@ -30,11 +30,11 @@ export default class SettingsScreen extends React.Component {
           <View style={styles.logoContainer}>
             <Ionicons
               name="ios-star-outline"
-              color={'#3490de'}
-              size={Platform.OS === 'ios' ? 200 : 25}
+              color={'#374FF5'}
+              size={Platform.OS === 'ios' ? 200 : 205}
             />
             <Text style={styles.appName}>Tiluz</Text>
-            <Text style={styles.appDescription}>O‘zbekzabon foydalanuvchilar uchun</Text>
+            <Text style={styles.appDescription}>Oʻzbekzabon foydalanuvchilar uchun</Text>
           </View>
           <View style={styles.reviewContainer}>
             <TouchableOpacity
@@ -48,7 +48,7 @@ export default class SettingsScreen extends React.Component {
                 <View>
                   <Ionicons
                     name="ios-star-outline"
-                    color={'#3490de'}
+                    color={'#374FF5'}
                     size={Platform.OS === 'ios' ? 26 : 25}
                   />
                 </View>
@@ -58,7 +58,7 @@ export default class SettingsScreen extends React.Component {
                 <View style={styles.linkArrowContainer}>
                   <Entypo
                     name="chevron-right"
-                    color={'#3490de'}
+                    color={'#374FF5'}
                     size={Platform.OS === 'ios' ? 26 : 25}
                   />
                 </View>
@@ -71,7 +71,7 @@ export default class SettingsScreen extends React.Component {
             onPress={() => {
               Share.share({
                 message:
-                  'O‘zbek tili yordamchisi ' + (Platform.OS === 'ios' ? 'Tiluz' : androidURL),
+                  'Oʻzbek tili yordamchisi ' + (Platform.OS === 'ios' ? 'Tiluz' : androidURL),
                 url: iosURL,
                 title: 'Tiluz'
               }).catch(err => console.log(err));
@@ -81,9 +81,9 @@ export default class SettingsScreen extends React.Component {
               name="share"
               size={Platform.OS === 'ios' ? 22 : 23}
               style={{ marginRight: 15 }}
-              color={'#3490de'}
+              color={'#374FF5'}
             />
-            <Text>Dasturni do‘stlaringiz bilan ulashing</Text>
+            <Text>Ilovani doʻstlaringiz bilan ulashing</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.authorContainer}>
@@ -119,15 +119,15 @@ const styles = StyleSheet.create({
   },
   reviewContainer: {
     flex: 2
-    // backgroundColor: '#fafa'
   },
   shareBox: {
     flex: 1,
     flexDirection: 'row',
     backgroundColor: '#fff',
-    margin: 18,
-    padding: 18,
+    margin: 10,
+    padding: 10,
     borderWidth: 0.5,
+    borderColor: '#374FF5',
     borderRadius: 10,
     alignItems: 'center'
   },

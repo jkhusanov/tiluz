@@ -12,7 +12,7 @@ const HomeTabs = createBottomTabNavigator(
     TranslitTab: {
       screen: TranslitStack,
       navigationOptions: {
-        tabBarLabel: 'O‘girish',
+        tabBarLabel: 'Oʻgirish',
         tabBarIcon: ({ tintColor }) => (
           <MaterialCommunityIcons
             name="clipboard-text"
@@ -44,7 +44,7 @@ const HomeTabs = createBottomTabNavigator(
     tabBarOptions: {
       showIcon: true,
       showLabel: true,
-      activeTintColor: '#3490de',
+      activeTintColor: '#374FF5',
       inactiveTintColor: '#393e46',
       style: {
         backgroundColor: '#ffffff',

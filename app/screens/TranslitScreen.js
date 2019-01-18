@@ -30,7 +30,7 @@ export default class TransLit extends React.Component {
       fontWeight: 'bold'
     },
     headerStyle: {
-      backgroundColor: '#3490de', // #374FF5
+      backgroundColor: '#374FF5', // #374FF5
       borderBottomWidth: 0.5,
       borderBottomColor: '#aaaaaa'
     }
@@ -119,7 +119,7 @@ export default class TransLit extends React.Component {
               styles.textOutputContainer,
               this.state.text.length > 0
                 ? {
-                    backgroundColor: '#3490de',
+                    backgroundColor: '#374FF5',
                     shadowColor: '#aaa',
                     shadowOffset: { height: 2, width: 0 }
                   }
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
   swapButtonContainer: {
     flex: 2,
-    backgroundColor: '#3490de',
+    backgroundColor: '#374FF5',
     height: 35,
     width: 50,
     borderRadius: 15,
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   textInputStyle: {
     flex: 1,
     fontSize: 20,
-    color: '#07689f',
+    color: '#2948ff',
     fontWeight: '500'
   },
   textInteractionsButton: {
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end'
   },
   doButtonIconStyle: {
-    color: '#3490de'
+    color: '#374FF5'
   },
   textOutputContainer: {
     flex: 1,

@@ -3912,6 +3912,11 @@ react-native-animatable@^1.2.4:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-app-intro-slider@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-app-intro-slider/-/react-native-app-intro-slider-1.0.1.tgz#712bf3dc1d66b3432bf4092971db4dfc01b916bd"
+  integrity sha512-5Gzg5FG2uP/RHkSDFB5+2df4vQ2FpyUJ5PGYd23lLEISsEOJe0Zredh1hHMJj+fB5D9B7ZoL0IlR+SNn8iFxHg==
+
 react-native-branch@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
