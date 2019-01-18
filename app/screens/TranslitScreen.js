@@ -30,7 +30,7 @@ export default class TransLit extends React.Component {
       fontWeight: 'bold'
     },
     headerStyle: {
-      backgroundColor: '#3490de',
+      backgroundColor: '#3490de', // #374FF5
       borderBottomWidth: 0.5,
       borderBottomColor: '#aaaaaa'
     }
@@ -72,81 +72,90 @@ export default class TransLit extends React.Component {
       <View style={styles.container}>
         <StatusBar backgroundColor="#3490de" barStyle="light-content" />
         <View style={styles.alphabetChooseContainer}>
-          <View style={styles.alphabetButtonContainer}>
+          <View style={styles.alphabetLeftButtonContainer}>
             <Text style={styles.alphabetText}>{isLatin ? 'Lotin' : 'Кирилл'}</Text>
           </View>
-
-          <View style={styles.alphabetButtonContainer}>
+          <TouchableOpacity style={styles.swapButtonContainer} onPress={() => this._changeAbc()}>
+            <MaterialCommunityIcons
+              name="swap-horizontal-variant"
+              size={Platform.OS === 'ios' ? 20 : 22}
+              style={styles.changeButtonIconStyle}
+            />
+          </TouchableOpacity>
+          <View style={styles.alphabetRightButtonContainer}>
             <Text style={styles.alphabetText}>{isLatin ? 'Кирилл' : 'Lotin'}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.swapButtonContainer} onPress={() => this._changeAbc()}>
-          <MaterialCommunityIcons
-            name="swap-horizontal-variant"
-            size={Platform.OS === 'ios' ? 20 : 22}
-            style={styles.changeButtonIconStyle}
-          />
-        </TouchableOpacity>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <Card containerStyle={styles.textInputContainer}>
-            <TextInput
-              style={styles.textInputStyle}
-              multiline={true}
-              autoCorrect={false}
-              spellCheck={false}
-              placeholder="Matnni o‘girish uchun kiriting"
-              onChangeText={text => this.setState({ text }, this._transliterate(text))}
-              value={this.state.text}
-              returnKeyType={'go'}
-              onSubmitEditing={() => this._setKeyboard()}
-            />
+
+        <View style={styles.textsContainer}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <Card containerStyle={styles.textInputContainer} wrapperStyle={styles.cardWrapper}>
+              <TextInput
+                style={styles.textInputStyle}
+                multiline={true}
+                autoCorrect={false}
+                spellCheck={false}
+                placeholder="Matnni o‘girish uchun kiriting"
+                onChangeText={text => this.setState({ text }, this._transliterate(text))}
+                value={this.state.text}
+                returnKeyType="go"
+                onSubmitEditing={() => this._setKeyboard()}
+              />
+              <TouchableOpacity
+                style={styles.textInteractionsButton}
+                onPress={() => this._setKeyboard()}
+              >
+                <SimpleLineIcons
+                  name="arrow-right-circle"
+                  size={Platform.OS === 'ios' ? 22 : 23}
+                  style={styles.doButtonIconStyle}
+                />
+              </TouchableOpacity>
+            </Card>
+          </TouchableWithoutFeedback>
+
+          <Card
+            containerStyle={[
+              styles.textOutputContainer,
+              this.state.text.length > 0
+                ? {
+                    backgroundColor: '#3490de',
+                    shadowColor: '#aaa',
+                    shadowOffset: { height: 2, width: 0 }
+                  }
+                : {
+                    backgroundColor: '#fafafa'
+                  }
+            ]}
+            wrapperStyle={styles.cardWrapper}
+          >
             <TouchableOpacity
               style={styles.textInteractionsButton}
-              onPress={() => this._setKeyboard()}
+              onPress={() => this._setContent()}
             >
-              <SimpleLineIcons
-                name="arrow-right-circle"
+              <MaterialCommunityIcons
+                name="content-copy"
                 size={Platform.OS === 'ios' ? 22 : 23}
-                style={styles.doButtonIconStyle}
+                style={styles.copyButtonIconStyle}
               />
             </TouchableOpacity>
+            <ScrollView>
+              <Text style={styles.textOutputStyle} selectable>
+                {this.state.convertedText}
+              </Text>
+            </ScrollView>
+            <View>
+              <Modal
+                isVisible={this.state.isModalVisible}
+                style={styles.bottomModal}
+                onModalShow={() => this._hideModal()}
+                backdropOpacity={0}
+              >
+                {this._renderModalContent()}
+              </Modal>
+            </View>
           </Card>
-        </TouchableWithoutFeedback>
-
-        <Card
-          containerStyle={[
-            styles.textOutputContainer,
-            this.state.text.length > 0
-              ? { backgroundColor: '#3490de' }
-              : { backgroundColor: '#fafafa' }
-          ]}
-        >
-          <TouchableOpacity
-            style={styles.textInteractionsButton}
-            onPress={() => this._setContent()}
-          >
-            <MaterialCommunityIcons
-              name="content-copy"
-              size={Platform.OS === 'ios' ? 22 : 23}
-              style={styles.copyButtonIconStyle}
-            />
-          </TouchableOpacity>
-          <ScrollView>
-            <Text style={styles.textOutputStyle} selectable>
-              {this.state.convertedText}
-            </Text>
-          </ScrollView>
-          <View>
-            <Modal
-              isVisible={this.state.isModalVisible}
-              style={styles.bottomModal}
-              onModalShow={() => this._hideModal()}
-              backdropOpacity={0}
-            >
-              {this._renderModalContent()}
-            </Modal>
-          </View>
-        </Card>
+        </View>
       </View>
     );
   }
@@ -158,9 +167,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   alphabetChooseContainer: {
-    height: height / 10,
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fafafa',
     borderBottomLeftRadius: 18,
@@ -171,8 +180,7 @@ const styles = StyleSheet.create({
     color: '#304753'
   },
   swapButtonContainer: {
-    top: 19,
-    position: 'absolute',
+    flex: 2,
     backgroundColor: '#3490de',
     height: 35,
     width: 50,
@@ -181,11 +189,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center'
   },
-  alphabetButtonContainer: {},
+  alphabetLeftButtonContainer: {
+    flex: 4,
+    alignItems: 'center'
+  },
+  alphabetRightButtonContainer: {
+    flex: 4,
+    alignItems: 'center'
+  },
   changeButtonIconStyle: {
     color: '#fff'
   },
+  textsContainer: {
+    flex: 9
+  },
   textInputContainer: {
+    flex: 1,
     backgroundColor: '#fafafa',
     borderWidth: 0,
     borderRadius: 10,
@@ -195,8 +214,12 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 2, width: 0 },
     elevation: 1
   },
+  cardWrapper: {
+    flex: 1,
+    justifyContent: 'space-between'
+  },
   textInputStyle: {
-    height: height / 4,
+    flex: 1,
     fontSize: 20,
     color: '#07689f',
     fontWeight: '500'
@@ -210,6 +233,7 @@ const styles = StyleSheet.create({
     color: '#3490de'
   },
   textOutputContainer: {
+    flex: 1,
     backgroundColor: '#fafafa',
     borderWidth: 0,
     borderRadius: 10,
@@ -218,7 +242,7 @@ const styles = StyleSheet.create({
     shadowColor: '#eeeeee',
     shadowOffset: { height: 2, width: 0 },
     elevation: 1,
-    height: height / 4 + 40
+    marginBottom: 10
   },
   textOutputStyle: {
     fontSize: 20,
@@ -237,6 +261,6 @@ const styles = StyleSheet.create({
   bottomModal: {
     justifyContent: 'flex-end',
     margin: 0,
-    paddingBottom: height / 10
+    marginBottom: height / 10
   }
 });
