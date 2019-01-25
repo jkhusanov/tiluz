@@ -1,8 +1,11 @@
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { StyleSheet, View, Text, Image } from 'react-native';
-import { LinearGradient } from 'expo';
+import { StyleSheet, View, Text, Image, AsyncStorage } from 'react-native';
+import { LinearGradient, AppLoading } from 'expo';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import { connect } from 'react-redux';
+
+import * as actions from '../actions';
 
 const slides = [
   {
@@ -29,7 +32,29 @@ const slides = [
   }
 ];
 
-export default class WelcomeScreen extends React.Component {
+class WelcomeScreen extends React.Component {
+  state = {
+    token: null
+  };
+
+  async componentDidMount() {
+    // AsyncStorage.removeItem('done_intro_token');
+
+    let token = await AsyncStorage.getItem('done_intro_token');
+    if (token) {
+      this.setState({ token });
+      this.props.navigation.navigate('Home');
+    } else {
+      this.setState({ token: false });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.token !== prevProps.token) {
+      this.props.navigation.navigate('Home');
+    }
+  }
+
   static navigationOptions = ({ navigation }) => ({
     header: null
   });
@@ -62,12 +87,15 @@ export default class WelcomeScreen extends React.Component {
   );
 
   render() {
+    if (this.state.token === null) {
+      return <AppLoading />;
+    }
     return (
       <AppIntroSlider
         slides={slides}
         renderItem={this._renderItem}
         bottomButton
-        onDone={() => this.props.navigation.navigate('Home')}
+        onDone={() => this.props.doneIntro()}
         doneLabel="Ilovani ochish"
         nextLabel="Keyingisi"
       />
@@ -100,3 +128,12 @@ const styles = StyleSheet.create({
     marginBottom: 16
   }
 });
+
+function mapStateToProps({ onboard }) {
+  return { token: onboard.token };
+}
+
+export default connect(
+  mapStateToProps,
+  actions
+)(WelcomeScreen);
