@@ -1,5 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, TouchableOpacity, Linking, Share } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  TouchableOpacity,
+  Linking,
+  Share,
+  Image
+} from 'react-native';
 import { Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 
 /** TODO
@@ -28,11 +37,6 @@ export default class SettingsScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.feedbackContainer}>
           <View style={styles.logoContainer}>
-            <Ionicons
-              name="ios-star-outline"
-              color={'#374FF5'}
-              size={Platform.OS === 'ios' ? 200 : 205}
-            />
             <Text style={styles.appName}>Tiluz</Text>
             <Text style={styles.appDescription}>Oʻzbekzabon foydalanuvchilar uchun</Text>
           </View>
@@ -160,7 +164,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   appName: {
-    fontSize: 30
+    fontSize: 50,
+    color: '#374FF5'
   },
   appDescription: {
     fontSize: 15

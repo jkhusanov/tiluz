@@ -35,7 +35,17 @@ export default class TransLit extends React.Component {
       borderBottomColor: '#aaaaaa'
     }
   });
-  state = { text: '', convertedText: '', isModalVisible: false, isLatin: true };
+  state = { text: '', convertedText: '', isModalVisible: false, isLatin: true, testWidth: '99%' };
+  componentDidMount() {
+    /**
+     * Needed for enabling Android copy-paste feature work. TouchableWithoutFeedback for some reason disables it.
+     * Evidently, resizing triggers something that makes Android copy-paste work.
+     * Timeout is mandatory for this hack, doesn't work otherwise.
+     */
+    setTimeout(() => {
+      this.setState({ testWidth: '100%' });
+    }, 100);
+  }
   _setContent() {
     if (this.state.convertedText !== '') {
       Clipboard.setString(this.state.convertedText);
@@ -91,7 +101,7 @@ export default class TransLit extends React.Component {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <Card containerStyle={styles.textInputContainer} wrapperStyle={styles.cardWrapper}>
               <TextInput
-                style={styles.textInputStyle}
+                style={[styles.textInputStyle, { width: this.state.testWidth }]}
                 multiline={true}
                 autoCorrect={false}
                 spellCheck={false}
