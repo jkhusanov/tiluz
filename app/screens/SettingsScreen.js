@@ -16,8 +16,8 @@ import { Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
  * Default letters
  * Choose app language
  */
-const iosURL = 'https://itunes.apple.com/us/app/chowin-out/id1399716122?mt=8';
-const androidURL = 'https://play.google.com/store/apps/details?id=com.makkhay.chowinout';
+const iosURL = 'https://itunes.apple.com/app/id1450669279';
+const androidURL = 'https://play.google.com/store/apps/details?id=com.reactmixer.tiluz';
 export default class SettingsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Sozlamalar',

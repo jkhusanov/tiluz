@@ -25,7 +25,7 @@ const slides = [
   },
   {
     key: 'slide3',
-    title: 'Xavsiz',
+    title: 'Xavfsiz',
     text: 'Barcha vazifalar faqatgina telefonda bajariladi, maʼlumotlar tashqariga yuborilmaydi ',
     icon: 'security-lock',
     colors: ['#29ABE2', '#4F00BC']
