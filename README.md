@@ -16,7 +16,7 @@
 
 ## What can Tiluz do?
 
-**Convert Latin text written in Uzbek language to Cyrillic**
+**Convert Latin text written in Uzbek language to Cyrillic text**
 
 - Users can **write or paste** text in the app
 - **Copy** transliterated text to clipboard
@@ -36,7 +36,7 @@
 
 ### [Demo - Try it on Expo](https://expo.io/@jkhusanov/Tiluz)
 
-##TODO
+### TODO
 
 - [x] Design, build, and implement screens' functionality
 - [x] One time onboard Swipe
