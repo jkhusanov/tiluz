@@ -16,7 +16,9 @@
 
 ## What can Tiluz do?
 
-**Convert Latin text written in Uzbek language to Cyrillic text**
+**Convert Latin script written in Uzbek language to Cyrillic script, and vice-versa**
+
+Uzbekistan has two active alphabet scripts. Latin script is the official one, and the country is actively switching to it from Cyrillic script. Created this app for personal use first.
 
 - Users can **write or paste** text in the app
 - **Copy** transliterated text to clipboard
