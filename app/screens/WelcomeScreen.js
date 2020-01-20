@@ -1,7 +1,8 @@
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet, View, Text, Image, AsyncStorage } from 'react-native';
-import { LinearGradient, AppLoading } from 'expo';
+import { AppLoading } from 'expo';
+import { LinearGradient } from 'expo-linear-gradient';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { connect } from 'react-redux';
 
