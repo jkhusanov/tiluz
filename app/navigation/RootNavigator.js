@@ -5,14 +5,14 @@ import HomeTabs from './HomeTabs';
 const RootNavigator = createSwitchNavigator(
   {
     Welcome: {
-      screen: WelcomeStack
+      screen: WelcomeStack,
     },
     Home: {
-      screen: HomeTabs
-    }
+      screen: HomeTabs,
+    },
   },
   {
-    initialRouteName: 'Welcome'
+    initialRouteName: 'Welcome',
   }
 );
 

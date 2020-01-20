@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { SimpleLineIcons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import TranslitStack from './TranslitStack';
@@ -19,8 +19,8 @@ const HomeTabs = createBottomTabNavigator(
             color={tintColor}
             size={Platform.OS === 'ios' ? 23 : 25}
           />
-        )
-      }
+        ),
+      },
     },
     SettingsTab: {
       screen: SettingsStack,
@@ -32,9 +32,9 @@ const HomeTabs = createBottomTabNavigator(
             color={tintColor}
             size={Platform.OS === 'ios' ? 23 : 25}
           />
-        )
-      }
-    }
+        ),
+      },
+    },
   },
   {
     initialRouteName: 'TranslitTab',
@@ -48,15 +48,15 @@ const HomeTabs = createBottomTabNavigator(
       inactiveTintColor: '#393e46',
       style: {
         backgroundColor: '#ffffff',
-        padding: Platform.OS === 'ios' ? 5 : 0
+        padding: Platform.OS === 'ios' ? 5 : 0,
       },
       indicatorStyle: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
       },
       labelStyle: {
-        fontSize: 12
-      }
-    }
+        fontSize: 12,
+      },
+    },
   }
 );
 

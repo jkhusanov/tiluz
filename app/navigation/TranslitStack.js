@@ -1,15 +1,15 @@
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import TranslitScreen from '../screens/TranslitScreen';
 
 const TranslitStack = createStackNavigator(
   {
     Translit: {
-      screen: TranslitScreen
-    }
+      screen: TranslitScreen,
+    },
   },
   {
-    initialRouteName: 'Translit'
+    initialRouteName: 'Translit',
   }
 );
 export default TranslitStack;

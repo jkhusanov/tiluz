@@ -3,6 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import reducers from './app/reducers';
 
@@ -16,7 +17,9 @@ export default class App extends React.Component {
 
     return (
       <Provider store={store}>
-        <AppContainer />
+        <SafeAreaProvider>
+          <AppContainer />
+        </SafeAreaProvider>
       </Provider>
     );
   }
