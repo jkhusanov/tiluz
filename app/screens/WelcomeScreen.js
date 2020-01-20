@@ -5,6 +5,7 @@ import { AppLoading } from 'expo';
 import { LinearGradient } from 'expo-linear-gradient';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { connect } from 'react-redux';
+import { SafeAreaConsumer } from 'react-native-safe-area-context';
 
 import * as actions from '../actions';
 
@@ -87,14 +88,19 @@ class WelcomeScreen extends React.Component {
       return <AppLoading />;
     }
     return (
-      <AppIntroSlider
-        slides={slides}
-        renderItem={this._renderItem}
-        bottomButton
-        onDone={() => this.props.doneIntro()}
-        doneLabel="Ilovani ochish"
-        nextLabel="Keyingisi"
-      />
+      <SafeAreaConsumer>
+        {insets => (
+          <AppIntroSlider
+            slides={slides}
+            renderItem={this._renderItem}
+            bottomButton
+            onDone={() => this.props.doneIntro()}
+            doneLabel="Ilovani ochish"
+            nextLabel="Keyingisi"
+            paginationStyle={{ paddingBottom: insets.bottom }}
+          />
+        )}
+      </SafeAreaConsumer>
     );
   }
 }
@@ -103,7 +109,7 @@ const styles = StyleSheet.create({
   mainContent: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
   },
   image: {
     width: 320,
