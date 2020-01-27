@@ -1,67 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
 import { AppLoading } from 'expo';
 import { LinearGradient } from 'expo-linear-gradient';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaConsumer } from 'react-native-safe-area-context';
+import PropTypes from 'prop-types';
+import LanguageContext from '@store/LanguageContext';
 
 import * as actions from '../actions';
 
-const slides = [
-  {
-    key: 'slide1',
-    title: 'Lotin - Kirill',
-    text:
-      'Oʻzbek tilidagi matnni Lotin yozuvidan Kirillga va Kirill yozuvidan Lotin yozuviga oʻgirish',
-    icon: 'swap-horizontal-variant',
-    colors: ['#396afc', '#B066FE'],
-  },
-  {
-    key: 'slide2',
-    title: 'Offline',
-    text: 'Ilova internetsiz ishlaydi',
-    icon: 'cloud-off-outline',
-    colors: ['#56CCF2', '#B066FE'],
-  },
-  {
-    key: 'slide3',
-    title: 'Xavfsiz',
-    text: 'Barcha vazifalar faqatgina telefonda bajariladi, maʼlumotlar tashqariga yuborilmaydi ',
-    icon: 'shield-lock',
-    colors: ['#29ABE2', '#4F00BC'],
-  },
-];
+/**
+ * Use this below to load welcome screen each time on dev mode
+ */
 
-class WelcomeScreen extends React.Component {
-  state = {
-    token: null,
-  };
+if (__DEV__) AsyncStorage.removeItem('done_intro_token');
 
-  async componentDidMount() {
-    AsyncStorage.removeItem('done_intro_token');
+const WelcomeScreen = props => {
+  const [token, setToken] = useState(null);
+  const languageContext = useContext(LanguageContext);
+  const { t } = languageContext;
 
-    let token = await AsyncStorage.getItem('done_intro_token');
-    if (token) {
-      this.setState({ token });
-      this.props.navigation.navigate('Home');
-    } else {
-      this.setState({ token: false });
-    }
-  }
+  const storedToken = useSelector(state => state.onboard.token);
+  const dispatch = useDispatch();
+  const { navigation } = props;
 
-  componentDidUpdate(prevProps) {
-    if (this.props.token !== prevProps.token) {
-      this.props.navigation.navigate('Home');
-    }
-  }
+  useEffect(() => {
+    const _checkForWelcomeLoad = async () => {
+      const localToken = await AsyncStorage.getItem('done_intro_token');
+      if (localToken) {
+        setToken(localToken);
+        navigation.navigate('Home');
+      } else {
+        setToken(false);
+      }
+    };
+    _checkForWelcomeLoad();
+  }, [storedToken, navigation]);
 
-  static navigationOptions = () => ({
-    headerShown: false,
-  });
+  const slides = [
+    {
+      key: 'slide1',
+      title: t('WELCOME_SLIDER_ONE_TITLE'),
+      text: t('WELCOME_SLIDER_ONE_BODY'),
+      icon: 'swap-horizontal-variant',
+      colors: ['#396afc', '#B066FE'],
+    },
+    {
+      key: 'slide2',
+      title: t('WELCOME_SLIDER_TWO_TITLE'),
+      text: t('WELCOME_SLIDER_TWO_BODY'),
+      icon: 'cloud-off-outline',
+      colors: ['#56CCF2', '#B066FE'],
+    },
+    {
+      key: 'slide3',
+      title: t('WELCOME_SLIDER_THREE_TITLE'),
+      text: t('WELCOME_SLIDER_THREE_BODY'),
+      icon: 'shield-lock',
+      colors: ['#29ABE2', '#4F00BC'],
+    },
+  ];
 
-  _renderItem = ({ item, dimensions }) => {
+  const _renderItem = ({ item, dimensions }) => {
     return (
       <LinearGradient
         style={[styles.mainContent, dimensions]}
@@ -83,27 +85,26 @@ class WelcomeScreen extends React.Component {
     );
   };
 
-  render() {
-    if (this.state.token === null) {
-      return <AppLoading />;
-    }
-    return (
-      <SafeAreaConsumer>
-        {insets => (
-          <AppIntroSlider
-            slides={slides}
-            renderItem={this._renderItem}
-            bottomButton
-            onDone={() => this.props.doneIntro()}
-            doneLabel="Ilovani ochish"
-            nextLabel="Keyingisi"
-            paginationStyle={{ paddingBottom: insets.bottom }}
-          />
-        )}
-      </SafeAreaConsumer>
-    );
+  if (token === null) {
+    return <AppLoading />;
   }
-}
+
+  return (
+    <SafeAreaConsumer>
+      {insets => (
+        <AppIntroSlider
+          slides={slides}
+          renderItem={_renderItem}
+          bottomButton
+          nextLabel={t('WELCOME_SLIDER_NEXT_BUTTON')}
+          doneLabel={t('WELCOME_SLIDER_DONE_BUTTON')}
+          onDone={() => dispatch(actions.doneIntro())}
+          paginationStyle={{ paddingBottom: insets.bottom }}
+        />
+      )}
+    </SafeAreaConsumer>
+  );
+};
 
 const styles = StyleSheet.create({
   mainContent: {
@@ -131,8 +132,12 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps({ onboard }) {
-  return { token: onboard.token };
-}
+WelcomeScreen.navigationOptions = () => ({
+  headerShown: false,
+});
 
-export default connect(mapStateToProps, actions)(WelcomeScreen);
+WelcomeScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
+
+export default WelcomeScreen;
