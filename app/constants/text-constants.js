@@ -1,4 +1,8 @@
 export const en = {
+  INITIAL_LANGUAGE: {
+    SKIP: 'Skip',
+  },
+
   WELCOME_SLIDER_ONE_TITLE: 'Latin - Cyrillic',
   WELCOME_SLIDER_ONE_BODY:
     'Transliterate the Uzbek language Latin script to Cyrillic, and vice-versa',
@@ -12,6 +16,9 @@ export const en = {
 };
 
 export const uz = {
+  INITIAL_LANGUAGE: {
+    SKIP: 'Oʻtkazib yuborish',
+  },
   WELCOME_SLIDER_ONE_TITLE: 'Lotin - Kirill',
   WELCOME_SLIDER_ONE_BODY:
     'Oʻzbek tilidagi matnni Lotin yozuvidan Kirillga va Kirill yozuvidan Lotin yozuviga oʻgirish',
@@ -22,4 +29,18 @@ export const uz = {
     'Barcha Lotin - Kirill oʻgirish vazifalari faqatgina telefonda bajariladi, maʼlumotlar tashqariga yuborilmaydi',
   WELCOME_SLIDER_NEXT_BUTTON: 'Keyingisi',
   WELCOME_SLIDER_DONE_BUTTON: 'Ilovani ochish',
+};
+
+// Regular text constants
+
+export const LANGUAGE_SETTINGS_SCREEN = {
+  ENGLISH: 'English',
+  EN_ORIGINAL: 'English',
+  EN_ICON: '🇬🇧',
+  UZBEK: 'Uzbek',
+  UZ_ORIGINAL: 'Oʻzbek',
+  UZ_ICON: '🇺🇿',
+  RUSSIAN: 'Russian',
+  RU_ORIGINAL: 'русский',
+  RU_ICON: '🇷🇺',
 };

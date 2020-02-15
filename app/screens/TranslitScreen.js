@@ -12,13 +12,13 @@ import {
   StatusBar,
   Keyboard,
   ScrollView,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { SimpleLineIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Card } from 'react-native-elements';
 import Modal from 'react-native-modal';
-import transliterator from '../components/transliterator';
-import { ltn_substitutions, cyrl_substitutions } from '../components/charSubstitutions';
+import transliterator from '../utils/transliterator';
+import { ltn_substitutions, cyrl_substitutions } from '../utils/charSubstitutions';
 const { width, height } = Dimensions.get('window');
 
 export default class TransLit extends React.Component {
@@ -27,13 +27,13 @@ export default class TransLit extends React.Component {
     headerTintColor: 'white',
     headerTitleStyle: {
       fontSize: 20,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
     headerStyle: {
       backgroundColor: '#374FF5', // #374FF5
       borderBottomWidth: 0.5,
-      borderBottomColor: '#aaaaaa'
-    }
+      borderBottomColor: '#aaaaaa',
+    },
   });
   state = { text: '', convertedText: '', isModalVisible: false, isLatin: true, testWidth: '99%' };
   componentDidMount() {
@@ -131,11 +131,11 @@ export default class TransLit extends React.Component {
                 ? {
                     backgroundColor: '#374FF5',
                     shadowColor: '#aaa',
-                    shadowOffset: { height: 2, width: 0 }
+                    shadowOffset: { height: 2, width: 0 },
                   }
                 : {
-                    backgroundColor: '#fafafa'
-                  }
+                    backgroundColor: '#fafafa',
+                  },
             ]}
             wrapperStyle={styles.cardWrapper}
           >
@@ -174,7 +174,7 @@ export default class TransLit extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   alphabetChooseContainer: {
     flex: 1,
@@ -183,11 +183,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fafafa',
     borderBottomLeftRadius: 18,
-    borderBottomRightRadius: 18
+    borderBottomRightRadius: 18,
   },
   alphabetText: {
     fontSize: 18,
-    color: '#304753'
+    color: '#304753',
   },
   swapButtonContainer: {
     flex: 2,
@@ -197,21 +197,21 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   alphabetLeftButtonContainer: {
     flex: 4,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   alphabetRightButtonContainer: {
     flex: 4,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   changeButtonIconStyle: {
-    color: '#fff'
+    color: '#fff',
   },
   textsContainer: {
-    flex: 9
+    flex: 9,
   },
   textInputContainer: {
     flex: 1,
@@ -222,25 +222,25 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     shadowColor: '#eeeeee',
     shadowOffset: { height: 2, width: 0 },
-    elevation: 1
+    elevation: 1,
   },
   cardWrapper: {
     flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   textInputStyle: {
     flex: 1,
     fontSize: 20,
     color: '#2948ff',
-    fontWeight: '500'
+    fontWeight: '500',
   },
   textInteractionsButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   doButtonIconStyle: {
-    color: '#374FF5'
+    color: '#374FF5',
   },
   textOutputContainer: {
     flex: 1,
@@ -252,25 +252,25 @@ const styles = StyleSheet.create({
     shadowColor: '#eeeeee',
     shadowOffset: { height: 2, width: 0 },
     elevation: 1,
-    marginBottom: 10
+    marginBottom: 10,
   },
   textOutputStyle: {
     fontSize: 20,
     color: '#fff',
-    fontWeight: '500'
+    fontWeight: '500',
   },
   copyButtonIconStyle: {
-    color: '#fff'
+    color: '#fff',
   },
   modalContent: {
     backgroundColor: '#212121',
     padding: 22,
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   bottomModal: {
     justifyContent: 'flex-end',
     margin: 0,
-    marginBottom: height / 10
-  }
+    marginBottom: height / 10,
+  },
 });

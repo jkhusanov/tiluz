@@ -8,8 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaConsumer } from 'react-native-safe-area-context';
 import PropTypes from 'prop-types';
 import LanguageContext from '@store/LanguageContext';
-
-import * as actions from '../actions';
+import * as actions from '@actions';
 
 /**
  * Use this below to load welcome screen each time on dev mode
