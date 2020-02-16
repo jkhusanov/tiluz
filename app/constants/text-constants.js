@@ -1,6 +1,6 @@
 export const en = {
   INITIAL_LANGUAGE: {
-    SKIP: 'Skip',
+    NEXT: 'Next',
   },
 
   WELCOME_SLIDER_ONE_TITLE: 'Latin - Cyrillic',
@@ -17,7 +17,7 @@ export const en = {
 
 export const uz = {
   INITIAL_LANGUAGE: {
-    SKIP: 'Oʻtkazib yuborish',
+    NEXT: 'Keyingisi',
   },
   WELCOME_SLIDER_ONE_TITLE: 'Lotin - Kirill',
   WELCOME_SLIDER_ONE_BODY:

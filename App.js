@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createAppContainer } from 'react-navigation';
+import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
@@ -12,8 +12,6 @@ import LanguageContext from './app/store/LanguageContext';
 import reducers from './app/reducers';
 
 import RootNavigator from './app/navigation/RootNavigator';
-
-const AppContainer = createAppContainer(RootNavigator);
 
 const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
@@ -34,7 +32,9 @@ const App = () => {
     <Provider store={store}>
       <SafeAreaProvider>
         <LanguageContext.Provider value={{ ...screenProps }}>
-          <AppContainer screenProps={{ ...screenProps }} />
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
         </LanguageContext.Provider>
       </SafeAreaProvider>
     </Provider>

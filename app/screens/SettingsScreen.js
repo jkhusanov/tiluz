@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   Share,
-  Image
+  Image,
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 
@@ -19,19 +19,6 @@ import { Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 const iosURL = 'https://itunes.apple.com/app/id1450669279';
 const androidURL = 'https://play.google.com/store/apps/details?id=com.reactmixer.tiluz';
 export default class SettingsScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: 'Sozlamalar',
-    headerTintColor: 'white',
-    headerTitleStyle: {
-      fontSize: 20,
-      fontWeight: 'bold'
-    },
-    headerStyle: {
-      backgroundColor: '#374FF5',
-      borderBottomWidth: 0.5,
-      borderBottomColor: '#aaaaaa'
-    }
-  });
   render() {
     return (
       <View style={styles.container}>
@@ -77,7 +64,7 @@ export default class SettingsScreen extends React.Component {
                 message:
                   'Oʻzbek tili yordamchisi ' + (Platform.OS === 'ios' ? 'Tiluz' : androidURL),
                 url: iosURL,
-                title: 'Tiluz'
+                title: 'Tiluz',
               }).catch(err => console.log(err));
             }}
           >
@@ -108,21 +95,21 @@ export default class SettingsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
     // alignItems: 'center',
     // justifyContent: 'center'
   },
   feedbackContainer: {
     flex: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   logoContainer: {
     flex: 10,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   reviewContainer: {
-    flex: 2
+    flex: 2,
   },
   shareBox: {
     flex: 1,
@@ -133,18 +120,18 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#374FF5',
     borderRadius: 10,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   authorContainer: {
     flex: 1,
     flexDirection: 'row',
     alignSelf: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   authorText: {
     fontSize: 14,
-    color: '#c5c5c5'
+    color: '#c5c5c5',
   },
   moreInfoContainer: {
     // flex: 1,
@@ -153,21 +140,21 @@ const styles = StyleSheet.create({
     height: 50,
     paddingLeft: 16,
     borderBottomWidth: 0.5,
-    borderBottomColor: '#c5c5c5'
+    borderBottomColor: '#c5c5c5',
   },
   linkArrowContainer: {
     position: 'absolute',
     right: 0,
-    paddingRight: 10
+    paddingRight: 10,
   },
   callText: {
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   appName: {
     fontSize: 50,
-    color: '#374FF5'
+    color: '#374FF5',
   },
   appDescription: {
-    fontSize: 15
-  }
+    fontSize: 15,
+  },
 });

@@ -1,42 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
-import { AppLoading } from 'expo';
+import { StyleSheet, View, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { SafeAreaConsumer } from 'react-native-safe-area-context';
-import PropTypes from 'prop-types';
 import LanguageContext from '@store/LanguageContext';
 import * as actions from '@actions';
 
-/**
- * Use this below to load welcome screen each time on dev mode
- */
-
-if (__DEV__) AsyncStorage.removeItem('done_intro_token');
-
-const WelcomeScreen = props => {
-  const [token, setToken] = useState(null);
+const WelcomeScreen = () => {
   const languageContext = useContext(LanguageContext);
   const { t } = languageContext;
 
-  const storedToken = useSelector(state => state.onboard.token);
   const dispatch = useDispatch();
-  const { navigation } = props;
-
-  useEffect(() => {
-    const _checkForWelcomeLoad = async () => {
-      const localToken = await AsyncStorage.getItem('done_intro_token');
-      if (localToken) {
-        setToken(localToken);
-        navigation.navigate('Home');
-      } else {
-        setToken(false);
-      }
-    };
-    _checkForWelcomeLoad();
-  }, [storedToken, navigation]);
 
   const slides = [
     {
@@ -84,10 +60,6 @@ const WelcomeScreen = props => {
     );
   };
 
-  if (token === null) {
-    return <AppLoading />;
-  }
-
   return (
     <SafeAreaConsumer>
       {insets => (
@@ -130,13 +102,5 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 });
-
-WelcomeScreen.navigationOptions = () => ({
-  headerShown: false,
-});
-
-WelcomeScreen.propTypes = {
-  navigation: PropTypes.object.isRequired,
-};
 
 export default WelcomeScreen;

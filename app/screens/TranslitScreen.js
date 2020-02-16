@@ -22,19 +22,6 @@ import { ltn_substitutions, cyrl_substitutions } from '../utils/charSubstitution
 const { width, height } = Dimensions.get('window');
 
 export default class TransLit extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: 'Tiluz',
-    headerTintColor: 'white',
-    headerTitleStyle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
-    headerStyle: {
-      backgroundColor: '#374FF5', // #374FF5
-      borderBottomWidth: 0.5,
-      borderBottomColor: '#aaaaaa',
-    },
-  });
   state = { text: '', convertedText: '', isModalVisible: false, isLatin: true, testWidth: '99%' };
   componentDidMount() {
     /**

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, StatusBar, Text, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -8,13 +8,29 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ChooseLanguage from '@components/complex/chooseLanguage/ChooseLanguage.component';
 import * as actions from '@actions';
+import LanguageContext from '@store/LanguageContext';
 
 const InitialLanguageScreen = props => {
+  const { navigation } = props;
+
+  const languageContext = useContext(LanguageContext);
+  const { t } = languageContext;
+
+  const _navigateToWelcomeSlider = () => {
+    navigation.navigate('Welcome');
+  };
+
   return (
     <View style={styles.component}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
-      <ChooseLanguage />
-      <Text>Next button here</Text>
+      <View style={{ flex: 5 }}>
+        <ChooseLanguage />
+      </View>
+      <View style={{ flex: 1, backgroundColor: 'red' }}>
+        <TouchableOpacity style={{ paddingRight: 16 }} onPress={_navigateToWelcomeSlider}>
+          <Text style={{ fontSize: 18 }}>{t('INITIAL_LANGUAGE.NEXT')}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -25,25 +41,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 });
-
-InitialLanguageScreen.navigationOptions = ({ navigation, screenProps }) => {
-  const { t } = screenProps;
-  const _navigateToWelcomeSlider = () => {
-    navigation.navigate('Welcome');
-  };
-  return {
-    headerRight: () => (
-      <TouchableOpacity style={{ paddingRight: 16 }} onPress={_navigateToWelcomeSlider}>
-        <Text style={{ fontSize: 18 }}>{t('INITIAL_LANGUAGE.SKIP')}</Text>
-      </TouchableOpacity>
-    ),
-    title: '',
-    headerStyle: {
-      elevation: 0,
-      shadowOpacity: 0,
-      borderBottomWidth: 0,
-    },
-  };
-};
 
 export default InitialLanguageScreen;
