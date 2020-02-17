@@ -23,16 +23,16 @@ const { width, height } = Dimensions.get('window');
 
 export default class TransLit extends React.Component {
   state = { text: '', convertedText: '', isModalVisible: false, isLatin: true, testWidth: '99%' };
-  componentDidMount() {
-    /**
-     * Needed for enabling Android copy-paste feature work. TouchableWithoutFeedback for some reason disables it.
-     * Evidently, resizing triggers something that makes Android copy-paste work.
-     * Timeout is mandatory for this hack, doesn't work otherwise.
-     */
-    setTimeout(() => {
-      this.setState({ testWidth: '100%' });
-    }, 100);
-  }
+  // componentDidMount() {
+  //   /**
+  //    * Needed for enabling Android copy-paste feature work. TouchableWithoutFeedback for some reason disables it.
+  //    * Evidently, resizing triggers something that makes Android copy-paste work.
+  //    * Timeout is mandatory for this hack, doesn't work otherwise.
+  //    */
+  //   setTimeout(() => {
+  //     this.setState({ testWidth: '100%' });
+  //   }, 100);
+  // }
   _setContent() {
     if (this.state.convertedText !== '') {
       Clipboard.setString(this.state.convertedText);

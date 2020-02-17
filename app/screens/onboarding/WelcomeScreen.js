@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useDispatch } from 'react-redux';
@@ -63,15 +63,18 @@ const WelcomeScreen = () => {
   return (
     <SafeAreaConsumer>
       {insets => (
-        <AppIntroSlider
-          slides={slides}
-          renderItem={_renderItem}
-          bottomButton
-          nextLabel={t('WELCOME_SLIDER_NEXT_BUTTON')}
-          doneLabel={t('WELCOME_SLIDER_DONE_BUTTON')}
-          onDone={() => dispatch(actions.doneIntro())}
-          paginationStyle={{ paddingBottom: insets.bottom }}
-        />
+        <>
+          <StatusBar backgroundColor="#3490de" barStyle="light-content" animated />
+          <AppIntroSlider
+            slides={slides}
+            renderItem={_renderItem}
+            bottomButton
+            nextLabel={t('WELCOME_SLIDER_NEXT_BUTTON')}
+            doneLabel={t('WELCOME_SLIDER_DONE_BUTTON')}
+            onDone={() => dispatch(actions.doneIntro())}
+            paginationStyle={{ paddingBottom: insets.bottom }}
+          />
+        </>
       )}
     </SafeAreaConsumer>
   );

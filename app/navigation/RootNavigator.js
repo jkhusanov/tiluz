@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useContext } from 'react';
 import { AsyncStorage } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppLoading } from 'expo';
+import * as actions from '@actions';
+import LanguageContext from '@store/LanguageContext';
 
 import WelcomeStack from './WelcomeStack';
 import HomeTabs from './HomeTabs';
@@ -9,28 +11,32 @@ import HomeTabs from './HomeTabs';
 /**
  * Use this below to load welcome screen each time on dev mode
  */
-if (__DEV__) AsyncStorage.removeItem('done_intro_token');
+if (__DEV__) {
+  AsyncStorage.removeItem('done_intro_token');
+  // AsyncStorage.removeItem('app_language');
+}
 
 const RootNavigator = () => {
-  const [isWelcomeTokenPresent, SetIsWelcomeTokenPresent] = useState(null);
+  const languageContext = useContext(LanguageContext);
   const storedWelcomeToken = useSelector(state => state.onboard.token);
+  const storedAppLanguage = useSelector(state => state.appLanguage.storedAppLanguage);
+  const dispatch = useDispatch();
+
+  const { locale, setLocale } = languageContext;
 
   useEffect(() => {
-    const _checkForWelcomeLoad = async () => {
-      const localToken = await AsyncStorage.getItem('done_intro_token');
-      if (localToken) {
-        SetIsWelcomeTokenPresent(localToken);
-      } else {
-        SetIsWelcomeTokenPresent(false);
-      }
-    };
-    _checkForWelcomeLoad();
-  }, [storedWelcomeToken]);
+    dispatch(actions.getWelcomeLoadToken());
+  }, []);
 
-  if (isWelcomeTokenPresent === null) {
+  useEffect(() => {
+    dispatch(actions.getAppLanguage());
+    setLocale(storedAppLanguage || locale);
+  }, [storedAppLanguage]);
+
+  if (storedWelcomeToken !== null && !storedWelcomeToken) {
     return <AppLoading />;
   }
 
-  return isWelcomeTokenPresent ? <HomeTabs /> : <WelcomeStack />;
+  return storedWelcomeToken ? <HomeTabs /> : <WelcomeStack />;
 };
 export default RootNavigator;
