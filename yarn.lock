@@ -1125,6 +1125,16 @@
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
+"@shipt/react-native-tachyons@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@shipt/react-native-tachyons/-/react-native-tachyons-1.0.2.tgz#aac8fe5412217e28b31c2ac37151d5bc9d22a255"
+  integrity sha512-o/31ObPY5g4Xt3FTWYJ7hfZdCfo7P/UspHOC0LvN1MLwC38sK7y3aZ1XHTfbsBm2sBdTwrZHOCJKnskREfYQ2w==
+  dependencies:
+    fast-equals "1.6.2"
+    invariant "2.2.4"
+    lodash "^4.17.13"
+    micro-memoize "3.0.1"
+
 "@types/fbemitter@^2.0.32":
   version "2.0.32"
   resolved "https://registry.yarnpkg.com/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
@@ -2809,6 +2819,11 @@ fast-deep-equal@^3.1.1:
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
   integrity sha512-8UEa58QDLauDNfpbrX55Q9jrGHThw2ZMdOky5Gl1CDtVeJDPVrG4Jxx1N8jw2gkWaff5UUuX1KJd+9zGe2B+ZA==
 
+fast-equals@1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/fast-equals/-/fast-equals-1.6.2.tgz#f1762bde0d571b5e9d4e1c4ae0599792f6a6df5f"
+  integrity sha512-6FiKwHkrHIqdvo9I92yzCR/zuWE6iy5ldcOszStPbmo7Zzj3OoVeng++GE//JqO4i6JQ4vH/BVAfCmUCki+C3g==
+
 fast-json-stable-stringify@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz#874bf69c6f404c2b5d99c481341399fd55892633"
@@ -4151,6 +4166,11 @@ metro@^0.56.0, metro@^0.56.4:
     ws "^1.1.5"
     xpipe "^1.0.5"
     yargs "^9.0.0"
+
+micro-memoize@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/micro-memoize/-/micro-memoize-3.0.1.tgz#fcc50755d35d8233382131d061ab6e2a92e327e7"
+  integrity sha512-1ruDLuAVzgBcm2WVFC4YZnTKY8xjBgcjoCGR4K64NbRncDxkgempJyYSni06vB9+FDQzqcvuyCQr0yc+0S5ltw==
 
 micromatch@^3.1.10, micromatch@^3.1.4:
   version "3.1.10"

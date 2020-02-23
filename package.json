@@ -11,6 +11,7 @@
     "@react-navigation/bottom-tabs": "^5.0.5",
     "@react-navigation/native": "^5.0.5",
     "@react-navigation/stack": "^5.0.5",
+    "@shipt/react-native-tachyons": "^1.0.2",
     "expo": "^36.0.0",
     "expo-linear-gradient": "~8.0.0",
     "expo-localization": "~8.0.0",

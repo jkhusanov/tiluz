@@ -13,6 +13,11 @@ export const en = {
     'Transliteration is done in the app and that data does not leave your device',
   WELCOME_SLIDER_NEXT_BUTTON: 'Next',
   WELCOME_SLIDER_DONE_BUTTON: 'Done',
+
+  CHOOSE_LANGUAGE: {
+    TITLE: 'Choose Your Preferred Language',
+    SUB_TITLE: 'You can change it later in the app settings',
+  },
 };
 
 export const uz = {
@@ -29,6 +34,11 @@ export const uz = {
     'Barcha Lotin - Kirill oʻgirish vazifalari faqatgina telefonda bajariladi, maʼlumotlar tashqariga yuborilmaydi',
   WELCOME_SLIDER_NEXT_BUTTON: 'Keyingisi',
   WELCOME_SLIDER_DONE_BUTTON: 'Ilovani ochish',
+
+  CHOOSE_LANGUAGE: {
+    TITLE: 'Ilova Tilini Tanlang',
+    SUB_TITLE: 'Uni keyinroq ilova sozlamalaridan oʻzgartira olasiz',
+  },
 };
 
 // Regular text constants

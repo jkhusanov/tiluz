@@ -13,7 +13,7 @@ import LanguageContext from '@store/LanguageContext';
 
 const ChooseLanguage = props => {
   const languageContext = useContext(LanguageContext);
-  const { locale, setLocale } = languageContext;
+  const { t, locale, setLocale } = languageContext;
 
   const isEnglish = locale === 'en' || locale === 'en-US';
   const isUzbek = locale === 'uz';
@@ -21,8 +21,8 @@ const ChooseLanguage = props => {
   return (
     <View style={styles.container}>
       <View style={styles.messageContainer}>
-        <Text style={styles.title}>Choose Your Proffered Language</Text>
-        <Text style={styles.subtitle}>Iltimos o'zingizning tilingizni tanlang</Text>
+        <Text style={styles.title}>{t('CHOOSE_LANGUAGE.TITLE')}</Text>
+        <Text style={styles.subtitle}>{t('CHOOSE_LANGUAGE.SUB_TITLE')}</Text>
       </View>
       <View style={styles.buttonsContainer}>
         <LanguageButton

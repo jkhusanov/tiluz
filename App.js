@@ -6,6 +6,7 @@ import ReduxThunk from 'redux-thunk';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
+import './app/constants/styles-config';
 import { en, uz } from './app/constants/text-constants';
 import LanguageContext from './app/store/LanguageContext';
 

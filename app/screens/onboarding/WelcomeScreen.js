@@ -1,17 +1,20 @@
 import React, { useContext } from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { StyleSheet, View, Text, StatusBar } from 'react-native';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, View, Text, StatusBar, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useDispatch } from 'react-redux';
 import { SafeAreaConsumer } from 'react-native-safe-area-context';
+import PropTypes from 'prop-types';
+
 import LanguageContext from '@store/LanguageContext';
 import * as actions from '@actions';
+import { T as ST } from '@shipt/react-native-tachyons';
 
-const WelcomeScreen = () => {
+const WelcomeScreen = props => {
   const languageContext = useContext(LanguageContext);
   const { t } = languageContext;
-
+  const { navigation } = props;
   const dispatch = useDispatch();
 
   const slides = [
@@ -38,7 +41,7 @@ const WelcomeScreen = () => {
     },
   ];
 
-  const _renderItem = ({ item, dimensions }) => {
+  const _renderItem = ({ item, dimensions, index }) => {
     return (
       <LinearGradient
         style={[styles.mainContent, dimensions]}
@@ -56,6 +59,24 @@ const WelcomeScreen = () => {
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.text}>{item.text}</Text>
         </View>
+
+        {index === 0 && (
+          <SafeAreaConsumer>
+            {insets => (
+              <TouchableOpacity
+                style={ST('absolute top-3 left-3', { paddingTop: insets.top })}
+                onPress={() => navigation.goBack()}
+              >
+                <MaterialIcons
+                  style={{ backgroundColor: 'transparent' }}
+                  name="arrow-back"
+                  size={40}
+                  color="white"
+                />
+              </TouchableOpacity>
+            )}
+          </SafeAreaConsumer>
+        )}
       </LinearGradient>
     );
   };
@@ -73,6 +94,7 @@ const WelcomeScreen = () => {
             doneLabel={t('WELCOME_SLIDER_DONE_BUTTON')}
             onDone={() => dispatch(actions.doneIntro())}
             paginationStyle={{ paddingBottom: insets.bottom }}
+            buttonStyle={ST('br2')}
           />
         </>
       )}
@@ -105,5 +127,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 });
+
+WelcomeScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default WelcomeScreen;

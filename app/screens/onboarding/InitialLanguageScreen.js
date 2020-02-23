@@ -1,17 +1,16 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { View, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import ChooseLanguage from '@components/complex/chooseLanguage/ChooseLanguage.component';
+import Button from '@components/simple/button/Button.component';
 import * as actions from '@actions';
 import LanguageContext from '@store/LanguageContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from 'react-native-elements';
-import COLORS from '@constants/colors';
 import { useDispatch } from 'react-redux';
+import { styled } from '@shipt/react-native-tachyons';
+
+const InitialLanguageContainer = styled(View)`flx-i bg-white`;
+const ButtonView = styled(View)`pa3`;
 
 const InitialLanguageScreen = props => {
   const { navigation } = props;
@@ -26,47 +25,17 @@ const InitialLanguageScreen = props => {
   };
 
   return (
-    <View style={styles.component}>
+    <InitialLanguageContainer>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <ChooseLanguage />
-      <SafeAreaView
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Button
-          title={t('INITIAL_LANGUAGE.NEXT')}
-          type="solid"
-          buttonStyle={styles.saveButtonStyle}
-          containerStyle={styles.saveButtonContainer}
-          titleStyle={styles.saveButtonTitle}
-          onPress={_navigateToWelcomeSlider}
-        />
+      <SafeAreaView>
+        <ButtonView>
+          <Button title={t('INITIAL_LANGUAGE.NEXT')} onPress={_navigateToWelcomeSlider} />
+        </ButtonView>
       </SafeAreaView>
-    </View>
+    </InitialLanguageContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  component: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  saveButtonContainer: {
-    padding: 16,
-  },
-  saveButtonStyle: {
-    width: wp('85%'),
-    height: hp('6%'),
-    backgroundColor: COLORS.mainBlue,
-    borderRadius: 10,
-  },
-  saveButtonTitle: {
-    fontSize: hp(2),
-    fontWeight: '700',
-  },
-});
 
 InitialLanguageScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
