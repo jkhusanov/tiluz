@@ -1,5 +1,5 @@
-//Uzbek latin letters to cyrillic
-export const ltn_substitutions = {
+// Uzbek latin letters to cyrillic
+export const ltnSubstitutions = {
   Ts: 'Ц',
   ts: 'ц',
   Oʻ: 'Ў',
@@ -95,11 +95,11 @@ export const ltn_substitutions = {
   Y: 'Й',
   y: 'й',
   Z: 'З',
-  z: 'з'
+  z: 'з',
 };
 
-//Uzbek cyrillic letters to latin
-export const cyrl_substitutions = {
+// Uzbek cyrillic letters to latin
+export const cyrlSubstitutions = {
   Ъ: 'ʼ',
   ъ: 'ʼ',
   Ь: '',
@@ -173,5 +173,5 @@ export const cyrl_substitutions = {
   Й: 'Y',
   й: 'y',
   З: 'Z',
-  з: 'z'
+  з: 'z',
 };

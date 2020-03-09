@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import COLORS from '@constants/colors';
@@ -36,6 +37,7 @@ const HomeTabs = () => {
         style: {
           backgroundColor: COLORS.white,
         },
+        keyboardHidesTabBar: Platform.OS === 'android',
       }}
     >
       <Tab.Screen name="TranslitTab" component={TranslitStackScreen} />

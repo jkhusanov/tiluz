@@ -18,6 +18,13 @@ export const en = {
     TITLE: 'Choose Your Preferred Language',
     SUB_TITLE: 'You can change it later in the app settings',
   },
+
+  TRANSLIT: {
+    TEXT_INPUT_PLACEHOLDER: 'Enter text to transliterate',
+    CLIPBOARD_COPY: 'Transliteration copied',
+    LATIN: 'Latin',
+    CYRILLIC: 'Cyrillic',
+  },
 };
 
 export const uz = {
@@ -39,9 +46,15 @@ export const uz = {
     TITLE: 'Ilova Tilini Tanlang',
     SUB_TITLE: 'Uni keyinroq ilova sozlamalaridan oʻzgartira olasiz',
   },
+  TRANSLIT: {
+    TEXT_INPUT_PLACEHOLDER: 'Matnni o‘girish uchun kiriting',
+    CLIPBOARD_COPY: 'Matn nusxasi olindi',
+    LATIN: 'Lotin',
+    CYRILLIC: 'Кирилл',
+  },
 };
 
-// Regular text constants
+// Regular text constants:
 
 export const LANGUAGE_SETTINGS_SCREEN = {
   ENGLISH: 'English',
