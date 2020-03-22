@@ -55,6 +55,7 @@ const AlphabetText = styled(Text)`f2 greySix`;
 const SwapButtonIcon = styled(MaterialCommunityIcons)`white`;
 const InputAndOutPutWrapper = styled(View)`flx-i pa3`;
 const OutPutWrapper = styled(View)`flx-i pt3`;
+
 const _setKeyboard = () => {
   Keyboard.dismiss();
 };
@@ -92,6 +93,11 @@ const TransLitScreen = () => {
     setTimeout(() => setIsModalVisible(!isModalVisible), 1250);
   };
 
+  const _clearInput = () => {
+    setText('');
+    setConvertedText('');
+  };
+
   return (
     <Container>
       <StatusBar backgroundColor={COLORS.blueOne} barStyle="light-content" />
@@ -113,6 +119,7 @@ const TransLitScreen = () => {
           onChangeText={_transliterate}
           onInputFinish={_setKeyboard}
           placeholder={t('TRANSLIT.TEXT_INPUT_PLACEHOLDER')}
+          onClearPress={_clearInput}
         />
         <OutPutWrapper>
           <OutputCard

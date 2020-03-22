@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Platform,
-  ScrollView,
-  Text,
-  View,
-  Dimensions,
-  StyleSheet,
-} from 'react-native';
+import { TouchableOpacity, ScrollView, Text, View, Dimensions, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { styled, T as TS } from '@shipt/react-native-tachyons';
@@ -35,7 +27,7 @@ const OutputCard = props => {
   return (
     <Card style={[value.length ? TS('bg-mainBlue') : null]}>
       <CopyButton onPress={onCopyButtonPress}>
-        <CopyButtonIcon name="content-copy" size={Platform.OS === 'ios' ? 22 : 23} />
+        <CopyButtonIcon name="content-copy" size={24} />
       </CopyButton>
       <ScrollView>
         <Output selectable>{value}</Output>

@@ -23,6 +23,11 @@ const Card = props => {
 
 Card.propTypes = {
   children: PropTypes.node.isRequired,
+  style: PropTypes.arrayOf(PropTypes.array),
+};
+
+Card.defaultProps = {
+  style: [],
 };
 
 export default Card;
