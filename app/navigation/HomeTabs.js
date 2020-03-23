@@ -1,63 +1,61 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Platform } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import COLORS from '@constants/colors';
+import LanguageContext from '@store/LanguageContext';
 
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { SimpleLineIcons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import TranslitStackScreen from './TranslitStackScreen';
+import SettingsStackScreen from './SettingsStackScreen';
 
-import TranslitStack from './TranslitStack';
-import SettingsStack from './SettingsStack';
+const Tab = createBottomTabNavigator();
 
-const HomeTabs = createBottomTabNavigator(
-  {
-    TranslitTab: {
-      screen: TranslitStack,
-      navigationOptions: {
-        tabBarLabel: 'Oʻgirish',
-        tabBarIcon: ({ tintColor }) => (
-          <MaterialCommunityIcons
-            name="clipboard-text"
-            color={tintColor}
-            size={Platform.OS === 'ios' ? 23 : 25}
-          />
-        ),
-      },
-    },
-    SettingsTab: {
-      screen: SettingsStack,
-      navigationOptions: {
-        tabBarLabel: 'Sozlamalar',
-        tabBarIcon: ({ tintColor }) => (
-          <MaterialCommunityIcons
-            name="settings"
-            color={tintColor}
-            size={Platform.OS === 'ios' ? 23 : 25}
-          />
-        ),
-      },
-    },
-  },
-  {
-    initialRouteName: 'TranslitTab',
-    tabBarPosition: 'bottom',
-    animationEnabled: Platform.OS === 'ios' ? false : true,
-    swipeEnabled: Platform.OS === 'ios' ? false : false,
-    tabBarOptions: {
-      showIcon: true,
-      showLabel: true,
-      activeTintColor: '#374FF5',
-      inactiveTintColor: '#393e46',
-      style: {
-        backgroundColor: '#ffffff',
-        padding: Platform.OS === 'ios' ? 5 : 0,
-      },
-      indicatorStyle: {
-        backgroundColor: 'white',
-      },
-      labelStyle: {
-        fontSize: 12,
-      },
-    },
-  }
-);
+const HomeTabs = () => {
+  const languageContext = useContext(LanguageContext);
+  const { t } = languageContext;
+
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'TranslitTab') {
+            iconName = focused ? 'clipboard-text' : 'clipboard-text';
+          } else if (route.name === 'SettingsTab') {
+            iconName = focused ? 'settings' : 'settings';
+          }
+
+          return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: COLORS.mainBlue,
+        inactiveTintColor: COLORS.greyTwo,
+        indicatorStyle: {
+          backgroundColor: 'white',
+        },
+        labelStyle: {
+          fontSize: 12,
+        },
+        style: {
+          backgroundColor: COLORS.white,
+        },
+        keyboardHidesTabBar: Platform.OS === 'android',
+      }}
+    >
+      <Tab.Screen
+        name="TranslitTab"
+        component={TranslitStackScreen}
+        options={{ tabBarLabel: t('NAVIGATION.TRANSLIT_TAB') }}
+      />
+      <Tab.Screen
+        name="SettingsTab"
+        component={SettingsStackScreen}
+        options={{ tabBarLabel: t('NAVIGATION.SETTINGS_TAB') }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 export default HomeTabs;
