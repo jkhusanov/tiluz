@@ -25,6 +25,16 @@ export const en = {
     LATIN: 'Latin',
     CYRILLIC: 'Cyrillic',
   },
+
+  SETTINGS: {
+    RATE_APP: 'Rate the app',
+    SHARE_APP: 'Share the app with your friends',
+  },
+
+  FOOTER_SIGNATURE: {
+    MADE_WITH: 'Made with ',
+    BY: ' by JK',
+  },
 };
 
 export const uz = {
@@ -52,6 +62,16 @@ export const uz = {
     LATIN: 'Lotin',
     CYRILLIC: 'Кирилл',
   },
+
+  SETTINGS: {
+    RATE_APP: 'Ilovani baholang',
+    SHARE_APP: 'Ilovani doʻstlaringiz bilan ulashing',
+  },
+
+  FOOTER_SIGNATURE: {
+    MADE_WITH: '',
+    BY: ' bilan JK tomonidan yaratilgan',
+  },
 };
 
 // Regular text constants:
@@ -66,4 +86,9 @@ export const LANGUAGE_SETTINGS_SCREEN = {
   RUSSIAN: 'Russian',
   RU_ORIGINAL: 'русский',
   RU_ICON: '🇷🇺',
+};
+
+export const SETTINGS_SCREEN = {
+  IOS_APP_URL: 'https://itunes.apple.com/app/id1450669279',
+  ANDROID_STORE_URL: 'https://play.google.com/store/apps/details?id=com.reactmixer.tiluz',
 };

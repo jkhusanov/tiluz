@@ -6,6 +6,7 @@ const greyThree = '#fafafa';
 const greyFour = '#212121';
 const greyFive = '#f5f5f5';
 const greySix = '#304753';
+const greySeven = '#c5c5c5';
 const black = '#000000';
 const blueOne = '#3490de';
 
@@ -19,6 +20,7 @@ const COLORS = {
   greyFour,
   greyFive,
   greySix,
+  greySeven,
   blueOne,
 };
 
