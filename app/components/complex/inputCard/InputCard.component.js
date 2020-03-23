@@ -43,9 +43,11 @@ const InputCard = props => {
             returnKeyType="go"
             onSubmitEditing={onInputFinish}
           />
-          <ClearButton onPress={onClearPress} disabled={isButtonDisabled}>
-            <ClearButtonIcon name="close" size={24} color={disabledButtonBackgroundColor} />
-          </ClearButton>
+          <ActionButtonsWrapper>
+            <ClearButton onPress={onClearPress} disabled={isButtonDisabled}>
+              <ClearButtonIcon name="close" size={24} color={disabledButtonBackgroundColor} />
+            </ClearButton>
+          </ActionButtonsWrapper>
         </InputWrapper>
 
         <ActionButtonsWrapper>
