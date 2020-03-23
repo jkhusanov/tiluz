@@ -1,32 +1,39 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useContext } from 'react';
+import { View, StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import LanguageButton from '@components/simple/languageButton/LanguageButton.component';
 import { LANGUAGE_SETTINGS_SCREEN as CONSTANTS } from '@constants/text-constants';
 import * as actions from '@actions';
 import LanguageContext from '@store/LanguageContext';
 
-const ChooseLanguage = props => {
+const ChooseLanguage = () => {
+  const dispatch = useDispatch();
+
   const languageContext = useContext(LanguageContext);
-  const { t, locale, setLocale } = languageContext;
+  const { locale, setLocale } = languageContext;
 
   const isEnglish = locale === 'en' || locale === 'en-US';
   const isUzbek = locale === 'uz';
 
+  const _setEnglish = () => {
+    setLocale('en');
+    dispatch(actions.setAppLanguage('en'));
+  };
+
+  const _setUzbek = () => {
+    setLocale('uz');
+    dispatch(actions.setAppLanguage('uz'));
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.messageContainer}>
-        <Text style={styles.title}>{t('CHOOSE_LANGUAGE.TITLE')}</Text>
-        <Text style={styles.subtitle}>{t('CHOOSE_LANGUAGE.SUB_TITLE')}</Text>
-      </View>
       <View style={styles.buttonsContainer}>
         <LanguageButton
-          onPress={() => setLocale('en')}
+          onPress={_setEnglish}
           englishTitle={CONSTANTS.ENGLISH}
           originalTitle={CONSTANTS.EN_ORIGINAL}
           icon={CONSTANTS.EN_ICON}
@@ -34,7 +41,7 @@ const ChooseLanguage = props => {
         />
 
         <LanguageButton
-          onPress={() => setLocale('uz')}
+          onPress={_setUzbek}
           englishTitle={CONSTANTS.UZBEK}
           originalTitle={CONSTANTS.UZ_ORIGINAL}
           icon={CONSTANTS.UZ_ICON}
@@ -48,21 +55,9 @@ const ChooseLanguage = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-  },
-  messageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: hp(2.9),
-  },
-  subtitle: {
-    paddingTop: 16,
-    fontSize: hp(1.9),
   },
   buttonsContainer: {
-    flex: 3,
+    paddingTop: 32,
   },
   button: {
     flexDirection: 'row',

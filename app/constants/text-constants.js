@@ -28,12 +28,20 @@ export const en = {
 
   SETTINGS: {
     RATE_APP: 'Rate the app',
-    SHARE_APP: 'Share the app with your friends',
+    SHARE_APP: 'Share The App',
+    LANGUAGE: 'App Language',
   },
 
   FOOTER_SIGNATURE: {
     MADE_WITH: 'Made with ',
     BY: ' by JK',
+  },
+
+  NAVIGATION: {
+    SETTINGS: 'Settings',
+    APP_LANGUAGE: 'Language',
+    TRANSLIT_TAB: 'Transliterate',
+    SETTINGS_TAB: 'Settings',
   },
 };
 
@@ -66,11 +74,19 @@ export const uz = {
   SETTINGS: {
     RATE_APP: 'Ilovani baholang',
     SHARE_APP: 'Ilovani doʻstlaringiz bilan ulashing',
+    LANGUAGE: 'Ilova Tili',
   },
 
   FOOTER_SIGNATURE: {
     MADE_WITH: '',
     BY: ' bilan JK tomonidan yaratilgan',
+  },
+
+  NAVIGATION: {
+    SETTINGS: 'Sozlamalar',
+    APP_LANGUAGE: 'Til',
+    TRANSLIT_TAB: 'Yozuv',
+    SETTINGS_TAB: 'Sozlamalar',
   },
 };
 

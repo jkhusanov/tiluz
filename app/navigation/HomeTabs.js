@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import COLORS from '@constants/colors';
+import LanguageContext from '@store/LanguageContext';
 
 import TranslitStackScreen from './TranslitStackScreen';
 import SettingsStackScreen from './SettingsStackScreen';
@@ -10,6 +11,9 @@ import SettingsStackScreen from './SettingsStackScreen';
 const Tab = createBottomTabNavigator();
 
 const HomeTabs = () => {
+  const languageContext = useContext(LanguageContext);
+  const { t } = languageContext;
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -40,8 +44,16 @@ const HomeTabs = () => {
         keyboardHidesTabBar: Platform.OS === 'android',
       }}
     >
-      <Tab.Screen name="TranslitTab" component={TranslitStackScreen} />
-      <Tab.Screen name="SettingsTab" component={SettingsStackScreen} />
+      <Tab.Screen
+        name="TranslitTab"
+        component={TranslitStackScreen}
+        options={{ tabBarLabel: t('NAVIGATION.TRANSLIT_TAB') }}
+      />
+      <Tab.Screen
+        name="SettingsTab"
+        component={SettingsStackScreen}
+        options={{ tabBarLabel: t('NAVIGATION.SETTINGS_TAB') }}
+      />
     </Tab.Navigator>
   );
 };

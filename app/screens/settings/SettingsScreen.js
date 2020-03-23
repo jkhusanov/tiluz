@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Text, View, Platform, TouchableOpacity, Linking, Share, ScrollView } from 'react-native';
-import { Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons, Entypo, SimpleLineIcons } from '@expo/vector-icons';
 import { styled, T as TS } from '@shipt/react-native-tachyons';
 import { SETTINGS_SCREEN } from '@constants/text-constants';
 import LanguageContext from '@store/LanguageContext';
 import COLORS from '@constants/colors';
 import FooterSignature from '@components/simple/footerSignature/FooterSignature.component';
+import PropTypes from 'prop-types';
 
 const Container = styled(View)`flx-i bg-white`;
 const MainContent = styled(ScrollView)`flx-i`;
@@ -32,14 +33,27 @@ const _shareApp = () => {
   });
 };
 
-const SettingsScreen = () => {
+const SettingsScreen = props => {
+  const { navigation } = props;
   const languageContext = useContext(LanguageContext);
   const { t } = languageContext;
+
+  const _navigateToLanguage = () => {
+    navigation.navigate('Language');
+  };
 
   return (
     <Container>
       <MainContent>
         <CellWrapper>
+          <ActionCell onPress={_navigateToLanguage}>
+            <SimpleLineIcons name="globe" size={24} color={COLORS.mainBlue} />
+            <ActionText>{t('SETTINGS.LANGUAGE')}</ActionText>
+            <ArrowIcon name="chevron-right" color={COLORS.mainBlue} size={24} />
+          </ActionCell>
+        </CellWrapper>
+
+        <CellWrapper style={TS('mt3')}>
           <ActionCell onPress={_openStore}>
             <Ionicons name="ios-star-outline" color={COLORS.mainBlue} size={24} />
             <ActionText>{t('SETTINGS.RATE_APP')}</ActionText>
@@ -59,5 +73,7 @@ const SettingsScreen = () => {
     </Container>
   );
 };
-
+SettingsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 export default SettingsScreen;

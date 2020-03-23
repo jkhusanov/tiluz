@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import COLORS from '@constants/colors';
-import TranslitScreen from 'app/screens/TranslitScreen';
+import TranslitScreen from 'app/screens/translit/TranslitScreen';
 
 const TranslitStack = createStackNavigator();
 

@@ -15,8 +15,8 @@ import OutputCard from '@components/complex/outputCard/OutputCard.component';
 import { styled } from '@shipt/react-native-tachyons';
 import LanguageContext from '@store/LanguageContext';
 import COLORS from '@constants/colors';
-import transliterator from '../utils/transliterator';
-import { ltnSubstitutions, cyrlSubstitutions } from '../utils/charSubstitutions';
+import transliterator from '@utils/transliterator';
+import { ltnSubstitutions, cyrlSubstitutions } from '@utils/charSubstitutions';
 
 const styles = StyleSheet.create({
   alphabetChooseContainer: {
