@@ -23,7 +23,8 @@
       "bundleIdentifier": "com.reactmixer.tiluz"
     },
     "android": {
-      "package": "com.reactmixer.tiluz"
+      "package": "com.reactmixer.tiluz",
+      "versionCode": 2
     },
     "description": "Uzbek Latin - Cyrillic Transliterator. "
   }
