@@ -11,7 +11,7 @@ import LanguageContext from '@store/LanguageContext';
 import * as actions from '@actions';
 import { T as ST } from '@shipt/react-native-tachyons';
 
-const WelcomeScreen = props => {
+const WelcomeScreen = (props) => {
   const languageContext = useContext(LanguageContext);
   const { t } = languageContext;
   const { navigation } = props;
@@ -62,7 +62,7 @@ const WelcomeScreen = props => {
 
         {index === 0 && (
           <SafeAreaConsumer>
-            {insets => (
+            {(insets) => (
               <TouchableOpacity
                 style={ST('absolute top-3 left-3', { paddingTop: insets.top })}
                 onPress={() => navigation.goBack()}
@@ -83,11 +83,11 @@ const WelcomeScreen = props => {
 
   return (
     <SafeAreaConsumer>
-      {insets => (
+      {(insets) => (
         <>
           <StatusBar backgroundColor="#3490de" barStyle="light-content" animated />
           <AppIntroSlider
-            slides={slides}
+            data={slides}
             renderItem={_renderItem}
             bottomButton
             nextLabel={t('WELCOME_SLIDER_NEXT_BUTTON')}
