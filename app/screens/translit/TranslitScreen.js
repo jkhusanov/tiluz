@@ -8,6 +8,7 @@ import {
   Platform,
   StatusBar,
   Keyboard,
+  Dimensions,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import InputCard from '@components/complex/inputCard/InputCard.component';
@@ -17,6 +18,7 @@ import LanguageContext from '@store/LanguageContext';
 import COLORS from '@constants/colors';
 import transliterator from '@utils/transliterator';
 import { ltnSubstitutions, cyrlSubstitutions } from '@utils/charSubstitutions';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const styles = StyleSheet.create({
   alphabetChooseContainer: {
@@ -60,6 +62,8 @@ const _setKeyboard = () => {
   Keyboard.dismiss();
 };
 
+const { height } = Dimensions.get('window');
+
 const TransLitScreen = () => {
   const [text, setText] = useState('');
   const [convertedText, setConvertedText] = useState('');
@@ -77,7 +81,7 @@ const TransLitScreen = () => {
     }
   };
 
-  const _transliterate = value => {
+  const _transliterate = (value) => {
     setText(value);
 
     const result = transliterator(value, isLatin ? ltnSubstitutions : cyrlSubstitutions);
@@ -112,25 +116,32 @@ const TransLitScreen = () => {
           <AlphabetText>{isLatin ? t('TRANSLIT.CYRILLIC') : t('TRANSLIT.LATIN')}</AlphabetText>
         </View>
       </AlphabetChooseContainer>
-
-      <InputAndOutPutWrapper>
-        <InputCard
-          value={text}
-          onChangeText={_transliterate}
-          onInputFinish={_setKeyboard}
-          placeholder={t('TRANSLIT.TEXT_INPUT_PLACEHOLDER')}
-          onClearPress={_clearInput}
-        />
-        <OutPutWrapper>
-          <OutputCard
-            value={convertedText}
-            onCopyButtonPress={_setContent}
-            isModalVisible={isModalVisible}
-            hideModal={_hideModal}
-            clipboardCopyText={t('TRANSLIT.CLIPBOARD_COPY')}
+      <KeyboardAwareScrollView
+        contentContainerStyle={[
+          Platform.OS === 'android' ? { minHeight: height / 1.4 } : { flex: 1 },
+        ]}
+        alwaysBounceVertical={false}
+      >
+        <InputAndOutPutWrapper>
+          <InputCard
+            value={text}
+            onChangeText={_transliterate}
+            onInputFinish={_setKeyboard}
+            placeholder={t('TRANSLIT.TEXT_INPUT_PLACEHOLDER')}
+            onClearPress={_clearInput}
           />
-        </OutPutWrapper>
-      </InputAndOutPutWrapper>
+
+          <OutPutWrapper>
+            <OutputCard
+              value={convertedText}
+              onCopyButtonPress={_setContent}
+              isModalVisible={isModalVisible}
+              hideModal={_hideModal}
+              clipboardCopyText={t('TRANSLIT.CLIPBOARD_COPY')}
+            />
+          </OutPutWrapper>
+        </InputAndOutPutWrapper>
+      </KeyboardAwareScrollView>
     </Container>
   );
 };

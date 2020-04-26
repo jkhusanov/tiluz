@@ -23,7 +23,7 @@ const ClearButtonIcon = styled(MaterialCommunityIcons)``;
 const MainActionButton = styled(ActionButton)`aife`;
 const MainActionButtonIcon = styled(ActionButtonIcon)``;
 
-const InputCard = props => {
+const InputCard = (props) => {
   const { value, onChangeText, onInputFinish, placeholder, onClearPress } = props;
   const isButtonDisabled = !value.length;
 
@@ -42,6 +42,8 @@ const InputCard = props => {
             value={value}
             returnKeyType="go"
             onSubmitEditing={onInputFinish}
+            textAlignVertical="top"
+            blurOnSubmit
           />
           <ActionButtonsWrapper>
             <ClearButton onPress={onClearPress} disabled={isButtonDisabled}>
