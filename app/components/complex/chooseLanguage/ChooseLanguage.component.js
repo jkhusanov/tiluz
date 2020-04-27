@@ -18,6 +18,8 @@ const ChooseLanguage = () => {
 
   const isEnglish = locale === 'en' || locale === 'en-US';
   const isUzbek = locale === 'uz';
+  const isUzbekC = locale === 'uzc';
+  const isRussian = locale === 'ru';
 
   const _setEnglish = () => {
     setLocale('en');
@@ -27,6 +29,16 @@ const ChooseLanguage = () => {
   const _setUzbek = () => {
     setLocale('uz');
     dispatch(actions.setAppLanguage('uz'));
+  };
+
+  const _setUzbekCyrillic = () => {
+    setLocale('uzc');
+    dispatch(actions.setAppLanguage('uzc'));
+  };
+
+  const _setRussian = () => {
+    setLocale('ru');
+    dispatch(actions.setAppLanguage('ru'));
   };
 
   return (
@@ -46,6 +58,22 @@ const ChooseLanguage = () => {
           originalTitle={CONSTANTS.UZ_ORIGINAL}
           icon={CONSTANTS.UZ_ICON}
           isSelected={isUzbek}
+        />
+
+        <LanguageButton
+          onPress={_setUzbekCyrillic}
+          englishTitle={CONSTANTS.UZBEK_C}
+          originalTitle={CONSTANTS.UZ_C_ORIGINAL}
+          icon={CONSTANTS.UZ_ICON}
+          isSelected={isUzbekC}
+        />
+
+        <LanguageButton
+          onPress={_setRussian}
+          englishTitle={CONSTANTS.RUSSIAN}
+          originalTitle={CONSTANTS.RU_ORIGINAL}
+          icon={CONSTANTS.RU_ICON}
+          isSelected={isRussian}
         />
       </View>
     </View>

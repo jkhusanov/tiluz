@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StatusBar, Text, ScrollView } from 'react-native';
+import { View, StatusBar, Text, ScrollView, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import ChooseLanguage from '@components/complex/chooseLanguage/ChooseLanguage.component';
 import Button from '@components/simple/button/Button.component';
@@ -21,10 +21,14 @@ const InitialLanguageScreen = (props) => {
   const _navigateToWelcomeSlider = () => {
     navigation.navigate('Welcome');
   };
+  const { height } = Dimensions.get('window');
 
   return (
     <InitialLanguageContainer>
-      <ScrollView alwaysBounceVertical={false} contentContainerStyle={TS('pa3 flx-i')}>
+      <ScrollView
+        alwaysBounceVertical={false}
+        contentContainerStyle={TS('pa3 flx-i', { minHeight: height })}
+      >
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <MessageContainer>
           <Title>{t('CHOOSE_LANGUAGE.TITLE')}</Title>
