@@ -8,10 +8,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { styled, T as TS } from '@shipt/react-native-tachyons';
 
 const InitialLanguageContainer = styled(View)`flx-i bg-white`;
-const ButtonView = styled(View)`pa3`;
-const MessageContainer = styled(View)`pt5 jcc`;
+const ButtonView = styled(View)`pa5`;
+const MessageContainer = styled(View)`pt7 jcc`;
 const Title = styled(Text)`f3`;
-const SubTitle = styled(Text)`pt3 f2`;
+const SubTitle = styled(Text)`pt5 f2`;
 const InitialLanguageScreen = (props) => {
   const { navigation } = props;
 
@@ -27,7 +27,7 @@ const InitialLanguageScreen = (props) => {
     <InitialLanguageContainer>
       <ScrollView
         alwaysBounceVertical={false}
-        contentContainerStyle={TS('pa3 flx-i', { minHeight: height })}
+        contentContainerStyle={TS('pa5 flx-i', { minHeight: height })}
       >
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <MessageContainer>
